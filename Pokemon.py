@@ -9,7 +9,6 @@ class Pokemon: # Définition de notre classe Personne
   - aski (j1 // j2)"""
   
   def __init__(self, nom, stats, types, attaques): # Notre méthode constructeur
-    """Pour l'instant, on ne va définir qu'un seul attribut"""
     self.nom = nom
     self.types = types
     self.attaques = attaques
