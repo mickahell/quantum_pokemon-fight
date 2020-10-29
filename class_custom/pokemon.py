@@ -8,6 +8,7 @@ class Pokemon:
     - dégats
     - aski (j1 // j2)"""
 
+    pokedex = [] # nb de pokemon crée
     def __init__(self, name, types, pv, points_attaque, points_defence, points_att_sp, points_def_sp, vitesse):
         self.name = name
         self.types = types
@@ -20,6 +21,8 @@ class Pokemon:
         self.status = 1
         self.degats = 0
         self.attaques = []
+
+        Pokemon.pokedex.append(self)
 
     def apprendre_attaques(self, attaques):
         self.attaques = attaques
