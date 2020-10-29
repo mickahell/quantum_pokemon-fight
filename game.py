@@ -86,6 +86,59 @@ for i in Pokemon.pokedex:
 pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
 print(Pokemon.pokedex[pokemon_j1].name)
 moi.addEquipe(Pokemon.pokedex[pokemon_j1])
+lui.addEquipe(ectoplasma)
 
 print("J1 - {}".format(moi.pokemon.name))
+print("J2 - {}".format(lui.pokemon.name))
 
+play = 1
+# Tour
+while play:
+    # Choix attaque
+    u = 0
+    for i in moi.pokemon.attaques:
+        print("[{}] {}  |   ".format(u, i.name))
+        u += 1
+    attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
+    attaque_j2 = 2
+    
+    # Qui commence ?
+    while lui.action == 1 || moi.action == 1:
+        # Plus rapide !
+        if lui.action == 1 && moi.action == 1:
+            if moi.pokemon.vitesse > lui.pokemon.vitesse:
+                moi.action = 0
+                lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
+                if lui.pokemon.degats >= lui.pokemon.pv:
+                    lui.pokemon.status = 0
+            elif moi.pokemon.vitesse < lui.pokemon.vitesse:
+                lui.action = 0
+                moi.pokemon.degats = moi.pokemon.degats + lui.pokemon.attaques[attaque_j2].puissance
+                if moi.pokemon.degats >= moi.pokemon.pv:
+                    moi.pokemon.status = 0
+            else:
+                moi.action = 0
+                lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
+                if lui.pokemon.degats >= lui.pokemon.pv:
+                    lui.pokemon.status = 0
+        # Moins rapide !
+        else:
+            if moi.action == 1:
+                moi.action = 0
+                lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
+                if lui.pokemon.degats >= lui.pokemon.pv:
+                    lui.pokemon.status = 0
+
+            else:
+                lui.action = 0
+                moi.pokemon.degats = moi.pokemon.degats + lui.pokemon.attaques[attaque_j2].puissance
+                if moi.pokemon.degats >= moi.pokemon.pv:
+                    moi.pokemon.status = 0
+
+
+
+
+    if moi.pokemon.status == 0 || lui.pokemon.status == 0:
+        play = 0
+
+print("Combat fini")
