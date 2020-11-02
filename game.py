@@ -2,6 +2,7 @@ from class_custom.pokemon import Pokemon
 from class_custom.type import Type
 from class_custom.attaques import Attaque
 from class_custom.joueur import Joueur
+import function
 
 # Création des types --> Sources : https://boutique-pokemon.com/blogs/blog-pokemon/table-types-pokemon
 feu = Type("Feu")
@@ -132,7 +133,7 @@ while play:
             if moi.pokemon.vitesse > lui.pokemon.vitesse:
                 moi.action = 0
                 print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
-                lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
+                lui.pokemon.degats = lui.pokemon.degats + function.calcul_dommage(moi.pokemon.attaques[attaque_j1], moi.pokemon, lui.pokemon)
                 if lui.pokemon.degats >= lui.pokemon.pv:
                     lui.pokemon.status = 0
                     print("{} est KO".format(lui.pokemon.name))
@@ -140,25 +141,37 @@ while play:
             elif moi.pokemon.vitesse < lui.pokemon.vitesse:
                 lui.action = 0
                 print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
-                moi.pokemon.degats = moi.pokemon.degats + lui.pokemon.attaques[attaque_j2].puissance
+                moi.pokemon.degats = moi.pokemon.degats + function.calcul_dommage(lui.pokemon.attaques[attaque_j2], lui.pokemon, moi.pokemon)
                 if moi.pokemon.degats >= moi.pokemon.pv:
                     moi.pokemon.status = 0
                     print("{} est KO".format(moi.pokemon.name))
                     moi.action == 0
+            # Speedtie
             else:
-                moi.action = 0
-                print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
-                lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
-                if lui.pokemon.degats >= lui.pokemon.pv:
-                    lui.pokemon.status = 0
-                    print("{} est KO".format(lui.pokemon.name))
-                    lui.action == 0
+                speetie = function.quantum_fight(0.5)
+                if speetie == 0:
+                    moi.action = 0
+                    print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
+                    lui.pokemon.degats = lui.pokemon.degats + function.calcul_dommage(moi.pokemon.attaques[attaque_j1], moi.pokemon, lui.pokemon)
+                    if lui.pokemon.degats >= lui.pokemon.pv:
+                        lui.pokemon.status = 0
+                        print("{} est KO".format(lui.pokemon.name))
+                        lui.action == 0
+                else:
+                    lui.action = 0
+                    print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
+                    moi.pokemon.degats = moi.pokemon.degats + function.calcul_dommage(lui.pokemon.attaques[attaque_j2],
+                                                                                      lui.pokemon, moi.pokemon)
+                    if moi.pokemon.degats >= moi.pokemon.pv:
+                        moi.pokemon.status = 0
+                        print("{} est KO".format(moi.pokemon.name))
+                        moi.action == 0
         # Le moins rapide !
         else:
             if moi.action == 1 and moi.pokemon.status == 1:
                 moi.action = 0
                 print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
-                lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
+                lui.pokemon.degats = lui.pokemon.degats + function.calcul_dommage(moi.pokemon.attaques[attaque_j1], moi.pokemon, lui.pokemon)
                 if lui.pokemon.degats >= lui.pokemon.pv:
                     lui.pokemon.status = 0
                     print("{} est KO".format(lui.pokemon.name))
@@ -167,7 +180,7 @@ while play:
             elif lui.action == 1 and lui.pokemon.status == 1:
                 lui.action = 0
                 print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
-                moi.pokemon.degats = moi.pokemon.degats + lui.pokemon.attaques[attaque_j2].puissance
+                moi.pokemon.degats = moi.pokemon.degats + function.calcul_dommage(lui.pokemon.attaques[attaque_j2], lui.pokemon, moi.pokemon)
                 if moi.pokemon.degats >= moi.pokemon.pv:
                     moi.pokemon.status = 0
                     print("{} est KO".format(moi.pokemon.name))
