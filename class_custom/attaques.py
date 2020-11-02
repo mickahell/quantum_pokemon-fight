@@ -6,7 +6,7 @@ class Attaque:
     - précision"""
 
     def __init__(self, nom, type, puissance, precision, status):
-        self.nom = nom
+        self.name = nom
         self.type = type
         self.puissance = puissance
         self.precision = precision

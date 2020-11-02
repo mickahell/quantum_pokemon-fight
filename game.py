@@ -3,7 +3,7 @@ from class_custom.type import Type
 from class_custom.attaques import Attaque
 from class_custom.joueur import Joueur
 
-# Création des types
+# Création des types --> Sources : https://boutique-pokemon.com/blogs/blog-pokemon/table-types-pokemon
 feu = Type("Feu")
 normal = Type("Normal")
 eau = Type("Eau")
@@ -14,6 +14,7 @@ poison = Type("Poison")
 insecte = Type("Insecte")
 spectre = Type("Spectre")
 sol = Type("Sol")
+tenebre = Type("Ténèbre")
 
 resistance = ["Insecte", "Plante", "Glace", "Feu", "Fée", "Acier"]
 faiblesse = ["Eau", "Roche", "Sol"]
@@ -50,20 +51,45 @@ faiblesse = ["Electrik", "Glace", "Roche"]
 imunite = ["Sol"]
 vol.add_info(resistance, faiblesse, imunite)
 
+resistance = ["Spectre", "Ténèbre"]
+faiblesse = ["Combat", "Fée", "Insecte"]
+imunite = ["Psy"]
+tenebre.add_info(resistance, faiblesse, imunite)
+
+resistance = ["Insecte", "Poison"]
+faiblesse = ["Spectre", "Ténèbre"]
+imunite = ["Normal", "Combat"]
+spectre.add_info(resistance, faiblesse, imunite)
+
+resistance = ["Combat", "Fée", "Insecte", "Plante", "Poison"]
+faiblesse = ["Psy", "Sol"]
+imunite = ["Psy"]
+poison.add_info(resistance, faiblesse, imunite)
+
+resistance = ["Poison", "Roche"]
+faiblesse = ["Eau", "Glace", "Plante"]
+imunite = ["Electrique"]
+sol.add_info(resistance, faiblesse, imunite)
+
 # Création des attaques
 deflagration = Attaque("Déflagration", feu, 110, 0.85, "special")
 vent_violent = Attaque("Vent violent", vol, 110, 0.70, "special")
 seisme = Attaque("Séisme", sol, 100, 1, "physique")
 tempete_verte = Attaque("Tempête verte", plante, 90, 1, "special")
+ball_ombre = Attaque("Ball'Ombre", spectre, 80, 1, "special")
+bombe_beurk = Attaque("Bombe Beurk", poison, 90, 1, "special")
+fatal_foudre = Attaque("Fatal-foudre", electrique, 110, 0.70, "special")
+vibrobscur = Attaque("Vibrobscur", tenebre, 80, 1, "special")
 
-# Création des pokémons
-dracaufeu = Pokemon("Dracaufeu", [feu, vol], 78, 84, 78, 109, 85, 100)
-ectoplasma = Pokemon("Ectoplasma", [spectre, poison], 60, 65, 60, 130, 75, 110)
-tortank = Pokemon("Tortank", [eau], 79, 83, 100, 85, 105, 78)
-pikachu = Pokemon("Pikachu", [electrique], 35, 55, 40, 50, 50, 90)
+# Création des pokémons --> Sources : https://www.pokepedia.fr/Pikachu#Statistiques-remarques1
+dracaufeu = Pokemon("Dracaufeu", [feu, vol], 360, 267, 255, 317, 269, 299)
+ectoplasma = Pokemon("Ectoplasma", [spectre, poison], 324, 229, 219, 359, 249, 319)
+tortank = Pokemon("Tortank", [eau], 362, 265, 299, 269, 309, 255)
+pikachu = Pokemon("Pikachu", [electrique], 294, 259, 199, 249, 219, 339)
 
-## Apprentissage des attaques
+# Apprentissage des attaques
 dracaufeu.apprendre_attaques([deflagration, vent_violent, seisme, tempete_verte])
+ectoplasma.apprendre_attaques([ball_ombre, bombe_beurk, fatal_foudre, vibrobscur])
 
 # Création joueur
 moi = Joueur("Chen", "j1")
@@ -71,12 +97,6 @@ lui = Joueur("Olga", "j2")
 
 ##############################################################
 # GAME
-
-# Affichage Pokés
-u = 0
-for i in Pokemon.pokedex:
-    print("{} - {}".format(u, i.name))
-    u += 1
 
 # Selection du poké
 u = 0
@@ -101,44 +121,63 @@ while play:
         u += 1
     attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
     attaque_j2 = 2
-    
+
+    lui.action = 1
+    moi.action = 1
+
     # Qui commence ?
-    while lui.action == 1 || moi.action == 1:
-        # Plus rapide !
-        if lui.action == 1 && moi.action == 1:
+    while (lui.action == 1 or moi.action == 1) and (lui.pokemon.status == 1 and moi.pokemon.status == 1):
+        # Le plus rapide !
+        if lui.action == 1 and moi.action == 1:
             if moi.pokemon.vitesse > lui.pokemon.vitesse:
                 moi.action = 0
+                print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
                 lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
                 if lui.pokemon.degats >= lui.pokemon.pv:
                     lui.pokemon.status = 0
+                    print("{} est KO".format(lui.pokemon.name))
+                    lui.action == 0
             elif moi.pokemon.vitesse < lui.pokemon.vitesse:
                 lui.action = 0
+                print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
                 moi.pokemon.degats = moi.pokemon.degats + lui.pokemon.attaques[attaque_j2].puissance
                 if moi.pokemon.degats >= moi.pokemon.pv:
                     moi.pokemon.status = 0
+                    print("{} est KO".format(moi.pokemon.name))
+                    moi.action == 0
             else:
                 moi.action = 0
+                print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
                 lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
                 if lui.pokemon.degats >= lui.pokemon.pv:
                     lui.pokemon.status = 0
-        # Moins rapide !
+                    print("{} est KO".format(lui.pokemon.name))
+                    lui.action == 0
+        # Le moins rapide !
         else:
-            if moi.action == 1:
+            if moi.action == 1 and moi.pokemon.status == 1:
                 moi.action = 0
+                print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
                 lui.pokemon.degats = lui.pokemon.degats + moi.pokemon.attaques[attaque_j1].puissance
                 if lui.pokemon.degats >= lui.pokemon.pv:
                     lui.pokemon.status = 0
+                    print("{} est KO".format(lui.pokemon.name))
+                    lui.action == 0
 
-            else:
+            elif lui.action == 1 and lui.pokemon.status == 1:
                 lui.action = 0
+                print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
                 moi.pokemon.degats = moi.pokemon.degats + lui.pokemon.attaques[attaque_j2].puissance
                 if moi.pokemon.degats >= moi.pokemon.pv:
                     moi.pokemon.status = 0
+                    print("{} est KO".format(moi.pokemon.name))
+                    moi.action == 0
 
-
-
-
-    if moi.pokemon.status == 0 || lui.pokemon.status == 0:
+    if moi.pokemon.status == 0 or lui.pokemon.status == 0:
         play = 0
+        if moi.pokemon.status == 1:
+            print("{} a gagné !".format(moi.name))
+        else:
+            print("{} a gagné !".format(lui.name))
 
 print("Combat fini")
