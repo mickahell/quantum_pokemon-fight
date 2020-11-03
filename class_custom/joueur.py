@@ -1,5 +1,5 @@
 class Joueur:
-    """Classe définissant une personne caractérisée par :
+    """Classe définissant un joueur :
     - nom
     - status (J1 // J2)
     - action

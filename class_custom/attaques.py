@@ -1,5 +1,5 @@
 class Attaque:
-    """Classe définissant une personne caractérisée par :
+    """Classe définissant une capacité (attaque) :
     - nom
     - type
     - puissance

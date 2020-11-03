@@ -1,8 +1,19 @@
-from class_custom.pokemon import Pokemon
-from class_custom.type import Type
+import function
 from class_custom.attaques import Attaque
 from class_custom.joueur import Joueur
-import function
+from class_custom.pokemon import Pokemon
+from class_custom.type import Type
+from qiskit import Aer, IBMQ
+
+# Init Qasm simulator backend
+qasm = Aer.get_backend('qasm_simulator')
+
+# Init Real Quantum computer
+IBMQ.load_account()
+provider = IBMQ.get_provider('ibm-q')
+quantum_computer = provider.get_backend('ibmq_16_melbourne')
+
+backend_sim = qasm  # Choose your backend : <quantum_computer> or <qasm>
 
 # Création des types --> Sources : https://boutique-pokemon.com/blogs/blog-pokemon/table-types-pokemon
 feu = Type("Feu")
@@ -42,13 +53,13 @@ faiblesse = ["Feu", "Glace", "Insecte", "Poison", "Vol"]
 imunite = []
 plante.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Acier", "Electrik", "Vol"]
+resistance = ["Acier", "Electrique", "Vol"]
 faiblesse = ["Sol"]
 imunite = []
 electrique.add_info(resistance, faiblesse, imunite)
 
 resistance = ["Combat", "Insecte", "Plante"]
-faiblesse = ["Electrik", "Glace", "Roche"]
+faiblesse = ["Electrique", "Glace", "Roche"]
 imunite = ["Sol"]
 vol.add_info(resistance, faiblesse, imunite)
 
@@ -131,60 +142,23 @@ while play:
         # Le plus rapide !
         if lui.action == 1 and moi.action == 1:
             if moi.pokemon.vitesse > lui.pokemon.vitesse:
-                moi.action = 0
-                print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
-                lui.pokemon.degats = lui.pokemon.degats + function.calcul_dommage(moi.pokemon.attaques[attaque_j1], moi.pokemon, lui.pokemon)
-                if lui.pokemon.degats >= lui.pokemon.pv:
-                    lui.pokemon.status = 0
-                    print("{} est KO".format(lui.pokemon.name))
-                    lui.action == 0
+                function.action_attaque(moi.pokemon.attaques[attaque_j1], moi, lui, backend_sim)
             elif moi.pokemon.vitesse < lui.pokemon.vitesse:
-                lui.action = 0
-                print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
-                moi.pokemon.degats = moi.pokemon.degats + function.calcul_dommage(lui.pokemon.attaques[attaque_j2], lui.pokemon, moi.pokemon)
-                if moi.pokemon.degats >= moi.pokemon.pv:
-                    moi.pokemon.status = 0
-                    print("{} est KO".format(moi.pokemon.name))
-                    moi.action == 0
+                function.action_attaque(lui.pokemon.attaques[attaque_j2], lui, moi, backend_sim)
             # Speedtie
             else:
                 speetie = function.quantum_fight(0.5)
                 if speetie == 0:
-                    moi.action = 0
-                    print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
-                    lui.pokemon.degats = lui.pokemon.degats + function.calcul_dommage(moi.pokemon.attaques[attaque_j1], moi.pokemon, lui.pokemon)
-                    if lui.pokemon.degats >= lui.pokemon.pv:
-                        lui.pokemon.status = 0
-                        print("{} est KO".format(lui.pokemon.name))
-                        lui.action == 0
+                    function.action_attaque(moi.pokemon.attaques[attaque_j1], moi, lui, backend_sim)
                 else:
-                    lui.action = 0
-                    print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
-                    moi.pokemon.degats = moi.pokemon.degats + function.calcul_dommage(lui.pokemon.attaques[attaque_j2],
-                                                                                      lui.pokemon, moi.pokemon)
-                    if moi.pokemon.degats >= moi.pokemon.pv:
-                        moi.pokemon.status = 0
-                        print("{} est KO".format(moi.pokemon.name))
-                        moi.action == 0
+                    function.action_attaque(lui.pokemon.attaques[attaque_j2], lui, moi, backend_sim)
         # Le moins rapide !
         else:
             if moi.action == 1 and moi.pokemon.status == 1:
-                moi.action = 0
-                print("{} utilise {}".format(moi.pokemon.name, moi.pokemon.attaques[attaque_j1].name))
-                lui.pokemon.degats = lui.pokemon.degats + function.calcul_dommage(moi.pokemon.attaques[attaque_j1], moi.pokemon, lui.pokemon)
-                if lui.pokemon.degats >= lui.pokemon.pv:
-                    lui.pokemon.status = 0
-                    print("{} est KO".format(lui.pokemon.name))
-                    lui.action == 0
+                function.action_attaque(moi.pokemon.attaques[attaque_j1], moi, lui, backend_sim)
 
             elif lui.action == 1 and lui.pokemon.status == 1:
-                lui.action = 0
-                print("{} utilise {}".format(lui.pokemon.name, lui.pokemon.attaques[attaque_j2].name))
-                moi.pokemon.degats = moi.pokemon.degats + function.calcul_dommage(lui.pokemon.attaques[attaque_j2], lui.pokemon, moi.pokemon)
-                if moi.pokemon.degats >= moi.pokemon.pv:
-                    moi.pokemon.status = 0
-                    print("{} est KO".format(moi.pokemon.name))
-                    moi.action == 0
+                function.action_attaque(lui.pokemon.attaques[attaque_j2], lui, moi, backend_sim)
 
     if moi.pokemon.status == 0 or lui.pokemon.status == 0:
         play = 0

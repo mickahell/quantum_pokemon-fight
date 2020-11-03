@@ -1,5 +1,5 @@
 class Type:
-    """Classe définissant une personne caractérisée par :
+    """Classe définissant un type :
     - nom
     - résistance []
     - faiblesse [] """

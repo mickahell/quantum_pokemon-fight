@@ -1,5 +1,5 @@
 class Pokemon:
-    """Classe définissant une personne caractérisée par :
+    """Classe définissant un pokemon :
     - nom
     - stats (pv // att // def // sp_att // sp_def // vitesse)
     - type(s)
