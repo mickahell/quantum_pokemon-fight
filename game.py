@@ -114,7 +114,7 @@ lui = Joueur("Olga", "j2")
 # Selection du poké
 u = 0
 for i in Pokemon.pokedex:
-    print("{} - {}".format(u, i.name))
+    #print("{} - {}".format(u, i.name))
     u += 1
 #pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
 #print(Pokemon.pokedex[pokemon_j1].name)
