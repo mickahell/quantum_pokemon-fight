@@ -3,6 +3,7 @@ from class_custom.attaques import Attaque
 from class_custom.joueur import Joueur
 from class_custom.pokemon import Pokemon
 from class_custom.type import Type
+from random import *
 from qiskit import Aer, IBMQ
 
 # Init Qasm simulator backend
@@ -115,9 +116,9 @@ u = 0
 for i in Pokemon.pokedex:
     print("{} - {}".format(u, i.name))
     u += 1
-pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
-print(Pokemon.pokedex[pokemon_j1].name)
-moi.addEquipe(Pokemon.pokedex[pokemon_j1])
+#pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
+#print(Pokemon.pokedex[pokemon_j1].name)
+moi.addEquipe(Pokemon.pokedex[0])
 lui.addEquipe(ectoplasma)
 
 print("J1 - {}".format(moi.pokemon.name))
@@ -132,7 +133,7 @@ while play:
         print("[{}] {}  |   ".format(u, i.name))
         u += 1
     attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
-    attaque_j2 = 2
+    attaque_j2 = randint(0, 3)
 
     lui.action = 1
     moi.action = 1
