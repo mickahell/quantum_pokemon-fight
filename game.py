@@ -198,6 +198,26 @@ while play:
             elif lui.action == 1 and lui.pokemon.status == 1:
                 function.action_attaque(lui.pokemon.attaques[attaque_j2], lui, moi, backend_sim)
 
+    # Brulure / Poison
+    if moi.pokemon.malus != "None" and moi.pokemon.status != 0:
+        if moi.pokemon.malus == "poison":
+            print("{} souffre du poison, il perd {} pv".format(moi.pokemon.name, round(moi.pokemon.pv/8)))
+            moi.pokemon.degats += round(moi.pokemon.pv/8)
+        if moi.pokemon.malus == "brulure":
+            print("{} souffre de sa brûlure, il perd {} pv".format(moi.pokemon.name, round(moi.pokemon.pv / 16)))
+            moi.pokemon.degats += round(moi.pokemon.pv / 16)
+        if moi.pokemon.degats >= moi.pokemon.pv:
+            moi.pokemon.status = 0
+    if lui.pokemon.malus != "None" and lui.pokemon.status != 0:
+        if lui.pokemon.malus == "poison":
+            print("{} souffre du poison, il perd {} pv".format(lui.pokemon.name, round(lui.pokemon.pv / 8)))
+            lui.pokemon.degats += round(lui.pokemon.pv / 8)
+        if lui.pokemon.malus == "brulure":
+            print("{} souffre de sa brûlure, il perd {} pv".format(lui.pokemon.name, round(lui.pokemon.pv / 16)))
+            lui.pokemon.degats += round(lui.pokemon.pv / 16)
+        if lui.pokemon.degats >= lui.pokemon.pv:
+            lui.pokemon.status = 0
+
     if moi.pokemon.status == 0 or lui.pokemon.status == 0:
         play = 0
         if moi.pokemon.status == 1:

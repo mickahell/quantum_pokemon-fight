@@ -21,6 +21,7 @@ class Pokemon:
         self.status = 1
         self.degats = 0
         self.attaques = []
+        self.malus = "None"
 
         Pokemon.pokedex.append(self)
 
