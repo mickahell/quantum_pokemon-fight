@@ -1,10 +1,11 @@
 import function
+import ia
 from class_custom.attaques import Attaque
 from class_custom.joueur import Joueur
 from class_custom.pokemon import Pokemon
 from class_custom.type import Type
 from random import *
-from qiskit import Aer, IBMQ
+from qiskit import Aer, QuantumCircuit, QuantumRegister, ClassicalRegister, execute, IBMQ
 
 # Init Qasm simulator backend
 qasm = Aer.get_backend('qasm_simulator')
@@ -28,61 +29,82 @@ insecte = Type("Insecte")
 spectre = Type("Spectre")
 sol = Type("Sol")
 tenebre = Type("Ténèbre")
+glace = Type("Glace")
 
-resistance = ["Insecte", "Plante", "Glace", "Feu", "Fée", "Acier"]
-faiblesse = ["Eau", "Roche", "Sol"]
-imunite = []
+resistance = [insecte, plante, feu, glace]
+faiblesse = [eau, sol]
+imunite = ["None"]
 feu.add_info(resistance, faiblesse, imunite)
 
-resistance = []
-faiblesse = ["Combat"]
-imunite = ["Spectre"]
+resistance = ["None"]
+faiblesse = ["None"]
+imunite = [spectre]
 normal.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Combat", "Plante", "Sol"]
-faiblesse = ["Feu", "Vol", "Roche"]
-imunite = []
+resistance = [plante, sol]
+faiblesse = [feu, vol]
+imunite = ["None"]
 insecte.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Acier", "Eau", "Feu", "Glace"]
-faiblesse = ["Plante", "Electrique"]
-imunite = []
+resistance = [eau, feu]
+faiblesse = [plante, electrique]
+imunite = ["None"]
 eau.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Eau", "Electrique", "Plante", "Sol"]
-faiblesse = ["Feu", "Glace", "Insecte", "Poison", "Vol"]
-imunite = []
+resistance = [eau, electrique, plante, sol]
+faiblesse = [feu, insecte, poison, vol, glace]
+imunite = ["None"]
 plante.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Acier", "Electrique", "Vol"]
-faiblesse = ["Sol"]
-imunite = []
+resistance = [electrique, vol]
+faiblesse = [sol]
+imunite = ["None"]
 electrique.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Combat", "Insecte", "Plante"]
-faiblesse = ["Electrique", "Glace", "Roche"]
-imunite = ["Sol"]
+resistance = [insecte, plante]
+faiblesse = [electrique, glace]
+imunite = [sol]
 vol.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Spectre", "Ténèbre"]
-faiblesse = ["Combat", "Fée", "Insecte"]
-imunite = ["Psy"]
+resistance = [spectre, tenebre]
+faiblesse = [insecte]
+imunite = ["None"]
 tenebre.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Insecte", "Poison"]
-faiblesse = ["Spectre", "Ténèbre"]
-imunite = ["Normal", "Combat"]
+resistance = [insecte, poison]
+faiblesse = [spectre, tenebre]
+imunite = [normal]
 spectre.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Combat", "Fée", "Insecte", "Plante", "Poison"]
-faiblesse = ["Psy", "Sol"]
-imunite = ["Psy"]
+resistance = [insecte, plante, poison]
+faiblesse = [sol]
+imunite = ["None"]
 poison.add_info(resistance, faiblesse, imunite)
 
-resistance = ["Poison", "Roche"]
-faiblesse = ["Eau", "Glace", "Plante"]
-imunite = ["Electrique"]
+resistance = [poison]
+faiblesse = [eau, plante, glace]
+imunite = [electrique]
 sol.add_info(resistance, faiblesse, imunite)
+
+resistance = [glace]
+faiblesse = [feu]
+imunite = ["None"]
+glace.add_info(resistance, faiblesse, imunite)
+
+# Création des qubits de type
+feu.qubit = QuantumRegister(1, 'feu')
+normal.qubit = QuantumRegister(1, 'normal')
+eau.qubit = QuantumRegister(1, 'eau')
+plante.qubit = QuantumRegister(1, 'plante')
+electrique.qubit = QuantumRegister(1, 'electric')
+vol.qubit = QuantumRegister(1, 'vol')
+poison.qubit = QuantumRegister(1, 'poison')
+insecte.qubit = QuantumRegister(1, 'insecte')
+spectre.qubit = QuantumRegister(1, 'spectre')
+sol.qubit = QuantumRegister(1, 'sol')
+tenebre.qubit = QuantumRegister(1, 'tenebre')
+glace.qubit = QuantumRegister(1, 'glace')
+qc_type = QuantumCircuit(feu.qubit, normal.qubit, eau.qubit, plante.qubit, electrique.qubit, vol.qubit, poison.qubit, insecte.qubit, spectre.qubit, sol.qubit, tenebre.qubit, glace.qubit)
 
 # Création des attaques
 deflagration = Attaque("Déflagration", feu, 110, 0.85, "special")
@@ -93,6 +115,8 @@ ball_ombre = Attaque("Ball'Ombre", spectre, 80, 1, "special")
 bombe_beurk = Attaque("Bombe Beurk", poison, 90, 1, "special")
 fatal_foudre = Attaque("Fatal-foudre", electrique, 110, 0.70, "special")
 vibrobscur = Attaque("Vibrobscur", tenebre, 80, 1, "special")
+laser_glace = Attaque("Laser Glace", glace, 90, 1, "special")
+hydrocanon = Attaque("Hydrocanon", eau, 110, 0.8, "special")
 
 # Création des pokémons --> Sources : https://www.pokepedia.fr/Pikachu#Statistiques-remarques1
 dracaufeu = Pokemon("Dracaufeu", [feu, vol], 360, 267, 255, 317, 269, 299)
@@ -102,11 +126,11 @@ pikachu = Pokemon("Pikachu", [electrique], 294, 259, 199, 249, 219, 339)
 
 # Apprentissage des attaques
 dracaufeu.apprendre_attaques([deflagration, vent_violent, seisme, tempete_verte])
-ectoplasma.apprendre_attaques([ball_ombre, bombe_beurk, fatal_foudre, vibrobscur])
+ectoplasma.apprendre_attaques([hydrocanon, vibrobscur, laser_glace, fatal_foudre])
 
 # Création joueur
 moi = Joueur("Chen", "j1")
-lui = Joueur("Olga", "j2")
+lui = Joueur("Agatha", "j2")
 
 ##############################################################
 # GAME
@@ -132,7 +156,7 @@ while play:
         print("[{}] {}  |   ".format(u, i.name))
         u += 1
     attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
-    attaque_j2 = randint(0, 3)
+    attaque_j2 = ia.quantum_ia(lui.pokemon, moi.pokemon, qc_type, backend_sim)
 
     lui.action = 1
     moi.action = 1

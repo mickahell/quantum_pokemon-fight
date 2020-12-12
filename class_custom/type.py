@@ -2,13 +2,15 @@ class Type:
     """Classe définissant un type :
     - nom
     - résistance []
-    - faiblesse [] """
+    - faiblesse []
+    - qubit """
 
     def __init__(self, name):
         self.name = name
         self.resistance = []
         self.faiblesse = []
         self.imunite = []
+        self.qubit = name
 
     def add_info(self, resistance, faiblesse, immunite):
         self.resistance = resistance
