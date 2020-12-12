@@ -155,8 +155,8 @@ for i in Pokemon.pokedex:
     print("{} - {}".format(u, i.name))
     u += 1
 pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
-moi.addEquipe(Pokemon.pokedex[0])
-lui.addEquipe(ectoplasma)
+moi.addEquipe(Pokemon.pokedex[pokemon_j1])
+lui.addEquipe(Pokemon.pokedex[randint(0, 3)])
 
 print("J1 - {}".format(moi.pokemon.name))
 print("J2 - {}".format(lui.pokemon.name))
