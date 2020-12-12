@@ -6,7 +6,8 @@ class Pokemon:
     - attaques []
     - status (vie // mort)
     - dégats
-    - aski (j1 // j2)"""
+    - aski (j1 // j2)
+    - malus (brulure, gel, poison, paralysie, none)"""
 
     pokedex = [] # nb de pokemon crée
     def __init__(self, name, types, pv, points_attaque, points_defence, points_att_sp, points_def_sp, vitesse):

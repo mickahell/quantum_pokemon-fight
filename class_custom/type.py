@@ -3,6 +3,7 @@ class Type:
     - nom
     - résistance []
     - faiblesse []
+    - imunite []
     - qubit """
 
     def __init__(self, name):
