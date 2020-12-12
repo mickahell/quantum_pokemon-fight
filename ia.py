@@ -1,5 +1,4 @@
-from qiskit import Aer, QuantumCircuit, QuantumRegister, ClassicalRegister, execute, IBMQ
-from qiskit.tools.monitor import job_monitor
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute
 
 
 def quantum_ia(attaquant, defenseur, qc_type, backend_sim):

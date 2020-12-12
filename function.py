@@ -1,5 +1,5 @@
 import math
-from qiskit import Aer, QuantumCircuit, execute, IBMQ
+from qiskit import QuantumCircuit, execute
 
 
 def quantum_fight(psi, backend_sim):
