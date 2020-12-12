@@ -25,15 +25,12 @@ def calcul_dommage(attaq, pokemon_att, pokemon_def, backend_sim):
             STAB = 1.5
 
         for i in pokemon_def.types:
-            if attaq.type.name in i.faiblesse:
+            if attaq.type in i.faiblesse:
                 RESISTANCE *= 2
-                print("C'est super efficace !")
-            elif attaq.type.name in i.resistance:
+            elif attaq.type in i.resistance:
                 RESISTANCE *= 0.5
-                print("Ce n'est pas très efficace !")
-            elif attaq.type.name in i.imunite:
+            elif attaq.type in i.imunite:
                 RESISTANCE *= 0
-                print("{} n'est pas affecté par cette attaque !".format(pokemon_def.name))
 
         quantum_crit = quantum_fight(0.0417, backend_sim)
         if quantum_crit == 1:
@@ -46,6 +43,14 @@ def calcul_dommage(attaq, pokemon_att, pokemon_def, backend_sim):
         else:
             degats = ((((100 * 0.4 + 2) * pokemon_att.points_att_sp * attaq.puissance) / (
                     pokemon_def.points_def_sp * 50)) + 2) * STAB * RESISTANCE * CRIT
+
+        if RESISTANCE > 1:
+            print("C'est super efficace !")
+        elif RESISTANCE < 1:
+            print("Ce n'est pas très efficace !")
+        elif RESISTANCE == 0:
+            print("{} n'est pas affecté par cette attaque !".format(pokemon_def.name))
+
     else:
         print("{} a loupé son attaque !".format(pokemon_att.name))
         degats = 0
