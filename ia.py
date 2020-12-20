@@ -1,7 +1,7 @@
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute
 
 
-def quantum_ia(attaquant, defenseur, qc_type, backend_sim):
+def quantum_attaq(attaquant, defenseur, qc_type, backend_sim):
     def diffuser(qc):
         qc.h(qram_q)
         qc.z(qram_q)

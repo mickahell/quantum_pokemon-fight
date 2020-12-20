@@ -108,5 +108,4 @@ def action_attaque(attaque, joueur_att, joueur_def, backend_sim):
 
         if joueur_def.pokemon.degats >= joueur_def.pokemon.pv:
             joueur_def.pokemon.status = 0
-            print("{} est KO".format(joueur_def.pokemon.name))
             joueur_def.action = 0

@@ -88,7 +88,7 @@ imunite = [electrique]
 sol.add_info(resistance, faiblesse, imunite)
 
 resistance = [glace]
-faiblesse = [feu]
+faiblesse = [feu, acier]
 imunite = ["None"]
 glace.add_info(resistance, faiblesse, imunite)
 
@@ -129,18 +129,31 @@ souplesse = Attaque("Souplesse", normal, 80, 0.75, "physique")
 noeud_herbe = Attaque("Noeud Herbe", plante, 80, 1, "special")
 luminocanon = Attaque("Luminocanon", acier, 80, 1, "special")
 giga_impact = Attaque("Giga-Impact", normal, 150, 0.9, "physique")
+morsure = Attaque("Morsure", tenebre, 60, 1, "physique")
+tri_attack = Attaque("Triplattaque", normal, 80, 1, "special")
+ultralaser = Attaque("Ultralaser", normal, 150, 0.9, "special")
+execu_son = Attaque("Exécu-Son", tenebre, 80, 1, "physique")
+poing_feu = Attaque("Poing Feu", feu, 75, 1, "physique")
 
 # Création des pokémons --> Sources : https://www.pokepedia.fr/Pikachu#Statistiques-remarques1
 dracaufeu = Pokemon("Dracaufeu", [feu, vol], 360, 267, 255, 317, 269, 299)
 ectoplasma = Pokemon("Ectoplasma", [spectre, poison], 324, 229, 219, 359, 249, 319)
 tortank = Pokemon("Tortank", [eau], 362, 265, 299, 269, 309, 255)
 pikachu = Pokemon("Pikachu", [electrique], 294, 259, 199, 249, 219, 339)
+givrali = Pokemon("Givrali", [glace], 334, 219, 319, 359, 289, 229)
+porygonz = Pokemon("Porygon-Z", [normal], 374, 259, 239, 369, 249, 279)
+blizzaroi = Pokemon("Blizzaroi", [plante, glace], 384, 283, 249, 283, 269, 219)
+salarsen = Pokemon("Salarsen", [electrique, poison], 354, 295, 239, 327, 239, 249)
 
 # Apprentissage des attaques
 dracaufeu.apprendre_attaques([deflagration, vent_violent, seisme, tempete_verte])
 ectoplasma.apprendre_attaques([bombe_beurk, vibrobscur, ball_ombre, fatal_foudre])
 tortank.apprendre_attaques([laser_glace, hydrocanon, luminocanon, giga_impact])
 pikachu.apprendre_attaques([fatal_foudre, queue_fer, souplesse, noeud_herbe])
+givrali.apprendre_attaques([laser_glace, souplesse, queue_fer, morsure])
+porygonz.apprendre_attaques([fatal_foudre, laser_glace, tri_attack, vibrobscur])
+blizzaroi.apprendre_attaques([laser_glace, tempete_verte, seisme, giga_impact])
+salarsen.apprendre_attaques([bombe_beurk, fatal_foudre, execu_son, poing_feu])
 
 # Création joueur
 moi = Joueur("Chen", "j1")
@@ -150,13 +163,26 @@ lui = Joueur("Agatha", "j2")
 # GAME
 
 # Selection du poké
+for i in range(3):
+    u = 0
+    for y in Pokemon.pokedex:
+        print("{} - {}".format(u, y.name))
+        u += 1
+    pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
+    moi.team.append(Pokemon.pokedex[pokemon_j1])
+    Pokemon.pokedex.remove(Pokemon.pokedex[pokemon_j1])
+    pokemon_j2 = randint(0, len(Pokemon.pokedex) - 1)
+    lui.team.append(Pokemon.pokedex[pokemon_j2])
+    Pokemon.pokedex.remove(Pokemon.pokedex[pokemon_j2])
+
 u = 0
-for i in Pokemon.pokedex:
+for i in moi.team:
     print("{} - {}".format(u, i.name))
     u += 1
-pokemon_j1 = int(input("Choisi un Poké par son chiffre : "))
-moi.addEquipe(Pokemon.pokedex[pokemon_j1])
-lui.addEquipe(Pokemon.pokedex[randint(0, 3)])
+
+first = int(input("Choisi ton 1er Poké par son chiffre : "))
+moi.addFirst(moi.team[first])
+lui.addFirst(lui.team[randint(0, 3)])
 
 print("J1 - {}".format(moi.pokemon.name))
 print("J2 - {}".format(lui.pokemon.name))
@@ -164,16 +190,28 @@ print("J2 - {}".format(lui.pokemon.name))
 play = 1
 # Tour
 while play:
-    # Choix attaque
-    u = 0
-    for i in moi.pokemon.attaques:
-        print("[{}] {}  |   ".format(u, i.name))
-        u += 1
-    attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
-    attaque_j2 = ia.quantum_ia(lui.pokemon, moi.pokemon, qc_type, backend_sim)
-
     lui.action = 1
     moi.action = 1
+
+    attaque_j2 = ia.quantum_attaq(lui.pokemon, moi.pokemon, qc_type, backend_sim)
+
+    action_j1 = int(input("0 - Attaques |||||| 1 - Pokémon : "))
+    if action_j1 == 0:
+        # Choix attaque
+        u = 0
+        for i in moi.pokemon.attaques:
+            print("[{}] {}  |   ".format(u, i.name))
+            u += 1
+        attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
+    else:
+        u = 0
+        for i in moi.team:
+            print("{} - {}".format(u, i.name))
+            u += 1
+        next_poke = int(input("Choisi le Poké a utiliser par son chiffre : "))
+        moi.addFirst(moi.team[next_poke])
+        print("{} appel {}".format(moi.name, moi.pokemon.name))
+        moi.action = 0
 
     # Qui commence ?
     while (lui.action == 1 or moi.action == 1) and (lui.pokemon.status == 1 and moi.pokemon.status == 1):
@@ -218,11 +256,35 @@ while play:
         if lui.pokemon.degats >= lui.pokemon.pv:
             lui.pokemon.status = 0
 
+    # Fin du tour, check si KO
     if moi.pokemon.status == 0 or lui.pokemon.status == 0:
-        play = 0
-        if moi.pokemon.status == 1:
-            print("{} a gagné !".format(moi.name))
-        else:
-            print("{} a gagné !".format(lui.name))
+        if moi.pokemon.status == 0:
+            print("{} est KO !".format(moi.pokemon.name))
+            moi.team.remove(moi.pokemon)
+            # Switch toi
+            if len(moi.team) > 0:
+                u = 0
+                for i in moi.team:
+                    print("{} - {}".format(u, i.name))
+                    u += 1
+                next_poke = int(input("Choisi ton Poké par son chiffre : "))
+                moi.addFirst(moi.team[next_poke])
+                print("{} appel {}".format(moi.name, moi.pokemon.name))
+            else:
+                print("{} a gagné !".format(lui.name))
+                print("GAME OVER !")
+                play = 0
+        if lui.pokemon.status == 0:
+            print("{} est KO !".format(lui.pokemon.name))
+            lui.team.remove(lui.pokemon)
+            # Switch adversaire
+            if len(lui.team) > 0:
+                next_poke = randint(0, (len(lui.team) - 1))
+                lui.addFirst(lui.team[next_poke])
+                print("{} appel {}".format(lui.name, lui.pokemon.name))
+            else:
+                print("{} a perdu !".format(lui.name))
+                print("YOU WON !")
+                play = 0
 
 print("Combat fini")
