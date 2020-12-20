@@ -1,0 +1,9 @@
+*.out
+*.aux
+*.log
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+__pycache__
+class_custom/__pycache__
