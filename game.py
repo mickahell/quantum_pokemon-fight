@@ -181,21 +181,33 @@ for i in moi.team:
     u += 1
 
 first = int(input("Choisi ton 1er Poké par son chiffre : "))
-moi.addFirst(moi.team[first])
-lui.addFirst(lui.team[randint(0, 3)])
-
-print("J1 - {}".format(moi.pokemon.name))
-print("J2 - {}".format(lui.pokemon.name))
+print("-----------------------------------------------------------")
+lui.addFirst(lui.team[randint(0, 2)])
 
 play = 1
 # Tour
 while play:
+    print("##############################################################")
+    print("J1 - {}".format(moi.pokemon.name))
+    print("J2 - {}".format(lui.pokemon.name))
+
     lui.action = 1
     moi.action = 1
 
-    attaque_j2 = ia.quantum_attaq(lui.pokemon, moi.pokemon, qc_type, backend_sim)
+    action_j2 = ia.quantum_action(lui.pokemon, moi.pokemon, qc_type, backend_sim)
+    if action_j2 == 0 or len(lui.team) == 1:
+        attaque_j2 = ia.quantum_attaq(lui.pokemon, moi.pokemon, qc_type, backend_sim)
+    else:
+        copy_team = []
+        for i in lui.team:
+            if i != lui.pokemon:
+                copy_team.append(i)
+        next_poke = ia.quantum_switch(copy_team, moi.pokemon, qc_type, backend_sim)
+        lui.addFirst(copy_team[next_poke])
+        lui.action = 0
 
-    action_j1 = int(input("0 - Attaques |||||| 1 - Pokémon : "))
+    action_j1 = int(input("[0] - Attaques |||||| [1] - Pokémon : "))
+    print("-----------------------------------------------------------")
     if action_j1 == 0:
         # Choix attaque
         u = 0
@@ -203,15 +215,22 @@ while play:
             print("[{}] {}  |   ".format(u, i.name))
             u += 1
         attaque_j1 = int(input("Choisi une attaque par son chiffre : "))
+        print("-----------------------------------------------------------")
     else:
+        # Choix switch
         u = 0
         for i in moi.team:
             print("{} - {}".format(u, i.name))
             u += 1
         next_poke = int(input("Choisi le Poké a utiliser par son chiffre : "))
+        print("-----------------------------------------------------------")
         moi.addFirst(moi.team[next_poke])
-        print("{} appel {}".format(moi.name, moi.pokemon.name))
         moi.action = 0
+
+    if action_j1 == 1:
+        print("{} appel {}".format(moi.name, moi.pokemon.name))
+    if action_j2 == 1:
+        print("{} appel {}".format(lui.name, lui.pokemon.name))
 
     # Qui commence ?
     while (lui.action == 1 or moi.action == 1) and (lui.pokemon.status == 1 and moi.pokemon.status == 1):
@@ -261,13 +280,14 @@ while play:
         if moi.pokemon.status == 0:
             print("{} est KO !".format(moi.pokemon.name))
             moi.team.remove(moi.pokemon)
-            # Switch toi
+            # Switch moi
             if len(moi.team) > 0:
                 u = 0
                 for i in moi.team:
                     print("{} - {}".format(u, i.name))
                     u += 1
                 next_poke = int(input("Choisi ton Poké par son chiffre : "))
+                print("-----------------------------------------------------------")
                 moi.addFirst(moi.team[next_poke])
                 print("{} appel {}".format(moi.name, moi.pokemon.name))
             else:
@@ -279,7 +299,10 @@ while play:
             lui.team.remove(lui.pokemon)
             # Switch adversaire
             if len(lui.team) > 0:
-                next_poke = randint(0, (len(lui.team) - 1))
+                if len(lui.team) > 1:
+                    next_poke = ia.quantum_switch(lui.team, moi.pokemon, qc_type, backend_sim)
+                else:
+                    next_poke = 0
                 lui.addFirst(lui.team[next_poke])
                 print("{} appel {}".format(lui.name, lui.pokemon.name))
             else:

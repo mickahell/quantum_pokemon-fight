@@ -46,10 +46,11 @@ def calcul_dommage(attaq, pokemon_att, pokemon_def, backend_sim):
 
         if RESISTANCE > 1:
             print("C'est super efficace !")
-        elif RESISTANCE < 1:
-            print("Ce n'est pas très efficace !")
-        elif RESISTANCE == 0:
-            print("{} n'est pas affecté par cette attaque !".format(pokemon_def.name))
+        if RESISTANCE < 1:
+            if RESISTANCE == 0:
+                print("{} n'est pas affecté par cette attaque !".format(pokemon_def.name))
+            else:
+                print("Ce n'est pas très efficace !")
 
         if attaq.type.name == "Poison" and RESISTANCE > 0:
             if quantum_fight(0.3, backend_sim) == 1 and pokemon_def.malus == "None":
