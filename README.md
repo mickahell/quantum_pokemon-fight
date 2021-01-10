@@ -18,3 +18,7 @@ pip install matplotlib
 ```python game.py```
 
 ## ENJOY ;)
+
+### Contributors
+- [Michael Rollin](https://github.com/mickahell)
+- [Praveen J](https://github.com/Praveen91299)
