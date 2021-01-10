@@ -6,21 +6,21 @@
   "commit": false,
   "contributors": [
     {
-      "login": "Praveen91299",
-      "name": "Praveen Jayakumar",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/35169492?v=4",
-      "profile": "https://sites.google.com/view/praveen91299/home",
-      "contributions": [
-        "review"
-      ]
-    },
-    {
       "login": "mickahell",
       "name": "Mica",
       "avatar_url": "https://avatars1.githubusercontent.com/u/20951376?v=4",
       "profile": "https://github.com/mickahell",
       "contributions": [
         "code,doc,research,tutorial"
+      ]
+    },
+    {
+      "login": "Praveen91299",
+      "name": "Praveen Jayakumar",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/35169492?v=4",
+      "profile": "https://sites.google.com/view/praveen91299/home",
+      "contributions": [
+        "review"
       ]
     }
   ],
