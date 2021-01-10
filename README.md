@@ -35,8 +35,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="https://github.com/mickahell"><img src="https://avatars1.githubusercontent.com/u/20951376?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mica</b></sub></a><br /><a href="#tutorial-mickahell" title="Tutorials">✅</a> <a href="https://github.com/mickahell/quantum_pokemon-fight/commits?author=mickahell" title="Code">💻</a> <a href="https://github.com/mickahell/quantum_pokemon-fight/commits?author=mickahell" title="Documentation">📖</a> <a href="#research-mickahell" title="Research">🔬</a></td>
     <td align="center"><a href="https://sites.google.com/view/praveen91299/home"><img src="https://avatars2.githubusercontent.com/u/35169492?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Praveen Jayakumar</b></sub></a><br /><a href="https://github.com/mickahell/quantum_pokemon-fight/pulls?q=is%3Apr+reviewed-by%3APraveen91299" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/mickahell"><img src="https://avatars1.githubusercontent.com/u/20951376?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mica</b></sub></a><br /><a href="#tutorial-mickahell" title="Tutorials">✅</a> <a href="https://github.com/mickahell/quantum_pokemon-fight/commits?author=mickahell" title="Code">💻</a> <a href="https://github.com/mickahell/quantum_pokemon-fight/commits?author=mickahell" title="Documentation">📖</a></td>
   </tr>
 </table>
 
