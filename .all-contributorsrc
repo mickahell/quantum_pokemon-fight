@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Praveen91299",
+      "name": "Praveen Jayakumar",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/35169492?v=4",
+      "profile": "https://sites.google.com/view/praveen91299/home",
+      "contributions": [
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "quantum_pokemon-fight",
+  "projectOwner": "mickahell",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
