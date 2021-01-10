@@ -22,10 +22,6 @@ pip install matplotlib
 
 ## ENJOY ;)
 
-### Contributors
-- [Michael Rollin](https://github.com/mickahell)
-- [Praveen J](https://github.com/Praveen91299)
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
