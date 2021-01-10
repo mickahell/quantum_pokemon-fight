@@ -1,38 +1,38 @@
 class Pokemon:
-    """Classe définissant un pokemon :
-    - nom
-    - stats (pv // att // def // sp_att // sp_def // vitesse)
+    """Class of pokemon :
+    - name
+    - stats (pv // att // def // sp_att // sp_def // speed)
     - type(s)
-    - attaques []
-    - status (vie // mort)
-    - dégats
+    - attacks []
+    - status (alive // dead)
+    - dommages
     - aski (j1 // j2)
-    - malus (brulure, gel, poison, paralysie, none)"""
+    - malus (burn, freeze, poison, paralysis, none)"""
 
-    pokedex = [] # nb de pokemon crée
-    def __init__(self, name, types, pv, points_attaque, points_defence, points_att_sp, points_def_sp, vitesse):
+    pokedex = [] # nb of pokemon making
+    def __init__(self, name, types, pv, points_attack, points_defense, points_att_sp, points_def_sp, speed):
         self.name = name
         self.types = types
         self.pv = pv
-        self.points_attaque = points_attaque
-        self.points_defence = points_defence
+        self.points_attack = points_attack
+        self.points_defense = points_defense
         self.points_att_sp = points_att_sp
         self.points_def_sp = points_def_sp
-        self.vitesse = vitesse
+        self.speed = speed
         self.status = 1
-        self.degats = 0
-        self.attaques = []
+        self.dommages = 0
+        self.attacks = []
         self.malus = "None"
 
         Pokemon.pokedex.append(self)
 
-    def apprendre_attaques(self, attaques):
-        self.attaques = attaques
+    def learn_attacks(self, attacks):
+        self.attacks = attacks
 
     def show_info(self):
-        print("{}, {} | {} pv, {} att, {} def, {} attSP, {} defSP, {} vitesse".format(self.name, self.types,
-                                                                                      self.pv, self.points_attaque,
-                                                                                      self.points_defence,
+        print("{}, {} | {} pv, {} att, {} def, {} attSP, {} defSP, {} speed".format(self.name, self.types,
+                                                                                      self.pv, self.points_attack,
+                                                                                      self.points_defense,
                                                                                       self.points_att_sp,
-                                                                                      self.points_def_sp, self.vitesse))
-        print("Attaques : {}".format(self.attaques))
+                                                                                      self.points_def_sp, self.speed))
+        print("Attacks : {}".format(self.attacks))

@@ -1,27 +1,27 @@
 class Type:
-    """Classe définissant un type :
-    - nom
+    """Class of type :
+    - name
     - résistance []
-    - faiblesse []
+    - weakness []
     - imunite []
     - qubit """
 
     def __init__(self, name):
         self.name = name
         self.resistance = []
-        self.faiblesse = []
+        self.weakness = []
         self.imunite = []
         self.qubit = name
 
-    def add_info(self, resistance, faiblesse, immunite):
+    def add_info(self, resistance, weakness, immunite):
         self.resistance = resistance
-        self.faiblesse = faiblesse
+        self.weakness = weakness
         self.imunite = immunite
 
     def show_info(self):
         if self.imunite:
-            print("{} | Résistance : {}, Faiblesse : {}, Imunité : {}".format(
-                self.name, self.resistance, self.faiblesse, self.imunite))
+            print("{} | Resistance : {}, Weakness : {}, Imunity : {}".format(
+                self.name, self.resistance, self.weakness, self.imunite))
         else:
-            print("{} | Résistance : {}, Faiblesse : {}".format(
-                self.name, self.resistance, self.faiblesse))
+            print("{} | Resistance : {}, Weakness : {}".format(
+                self.name, self.resistance, self.weakness))

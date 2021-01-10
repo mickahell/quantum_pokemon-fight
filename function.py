@@ -15,98 +15,98 @@ def quantum_fight(psi, backend_sim):
     return to_return
 
 
-def calcul_dommage(attaq, pokemon_att, pokemon_def, backend_sim):
-    quantum_precision = quantum_fight(attaq.precision, backend_sim)
+def calcul_dommage(attac, pokemon_att, pokemon_def, backend_sim):
+    quantum_precision = quantum_fight(attac.precision, backend_sim)
     if quantum_precision == 1:
         STAB = 1
         RESISTANCE = 1
         CRIT = 1
-        if attaq.type in pokemon_att.types:
+        if attac.type in pokemon_att.types:
             STAB = 1.5
 
         for i in pokemon_def.types:
-            if attaq.type in i.faiblesse:
+            if attac.type in i.weakness:
                 RESISTANCE *= 2
-            elif attaq.type in i.resistance:
+            elif attac.type in i.resistance:
                 RESISTANCE *= 0.5
-            elif attaq.type in i.imunite:
+            elif attac.type in i.imunite:
                 RESISTANCE *= 0
 
         quantum_crit = quantum_fight(0.0417, backend_sim)
         if quantum_crit == 1:
             CRIT = 1.5
-            print("coup critique !")
+            print("critical hit !")
 
-        if attaq.status == "physique":
-            degats = ((((100 * 0.4 + 2) * pokemon_att.points_attaque * attaq.puissance) / (
-                    pokemon_def.points_defence * 50)) + 2) * STAB * RESISTANCE * CRIT
+        if attac.status == "physical":
+            dommages = ((((100 * 0.4 + 2) * pokemon_att.points_attack * attac.power) / (
+                    pokemon_def.points_defense * 50)) + 2) * STAB * RESISTANCE * CRIT
         else:
-            degats = ((((100 * 0.4 + 2) * pokemon_att.points_att_sp * attaq.puissance) / (
+            dommages = ((((100 * 0.4 + 2) * pokemon_att.points_att_sp * attac.power) / (
                     pokemon_def.points_def_sp * 50)) + 2) * STAB * RESISTANCE * CRIT
 
         if RESISTANCE > 1:
-            print("C'est super efficace !")
+            print("It's super efficient !")
         if RESISTANCE < 1:
             if RESISTANCE == 0:
-                print("{} n'est pas affecté par cette attaque !".format(pokemon_def.name))
+                print("{} is not affected by this attack !".format(pokemon_def.name))
             else:
-                print("Ce n'est pas très efficace !")
+                print("It is not very effective !")
 
-        if attaq.type.name == "Poison" and RESISTANCE > 0:
+        if attac.type.name == "Poison" and RESISTANCE > 0:
             if quantum_fight(0.3, backend_sim) == 1 and pokemon_def.malus == "None":
                 pokemon_def.malus = "poison"
-                print("{} est empoisonné.".format(pokemon_def.name))
-        if attaq.type.name == "Feu" and RESISTANCE > 0:
+                print("{} is poisoned.".format(pokemon_def.name))
+        if attac.type.name == "Fire" and RESISTANCE > 0:
             if quantum_fight(0.1, backend_sim) == 1 and pokemon_def.malus == "None":
-                pokemon_def.malus = "brulure"
-                pokemon_def.points_attaque *= 0.5
-                print("{} est brulé.".format(pokemon_def.name))
-        if attaq.type.name == "Glace" and RESISTANCE > 0:
+                pokemon_def.malus = "burn"
+                pokemon_def.points_attack *= 0.5
+                print("{} is burnt.".format(pokemon_def.name))
+        if attac.type.name == "Ice" and RESISTANCE > 0:
             if quantum_fight(0.1, backend_sim) == 1 and pokemon_def.malus == "None":
-                pokemon_def.malus = "gel"
-                print("{} est gelé.".format(pokemon_def.name))
-        if attaq.type.name == "Electrique" and RESISTANCE > 0:
+                pokemon_def.malus = "freeze"
+                print("{} is frozen.".format(pokemon_def.name))
+        if attac.type.name == "Electric" and RESISTANCE > 0:
             if quantum_fight(0.3, backend_sim) == 1 and pokemon_def.malus == "None":
-                pokemon_def.malus = "paralysie"
-                pokemon_def.vitesse *= 0.5
-                print("{} est paralysé.".format(pokemon_def.name))
+                pokemon_def.malus = "paralysis"
+                pokemon_def.speed *= 0.5
+                print("{} is paralyzed.".format(pokemon_def.name))
 
     else:
-        print("{} a loupé son attaque !".format(pokemon_att.name))
-        degats = 0
+        print("{} miss !".format(pokemon_att.name))
+        dommages = 0
 
-    return degats
+    return dommages
 
 
-def action_attaque(attaque, joueur_att, joueur_def, backend_sim):
-    joueur_att.action = 0
-    degel = 1
-    paralysie = 1
+def action_attack(attaque, player_att, player_def, backend_sim):
+    player_att.action = 0
+    thaw = 1
+    paralysis = 1
 
-    if joueur_att.pokemon.malus == "gel":
-        degel = quantum_fight(0.2, backend_sim)
-        if degel == 1:
-            print("{} est dégelé.".format(joueur_att.pokemon.name))
-            joueur_att.pokemon.malus = "None"
+    if player_att.pokemon.malus == "freeze":
+        thaw = quantum_fight(0.2, backend_sim)
+        if thaw == 1:
+            print("{} is thawed.".format(player_att.pokemon.name))
+            player_att.pokemon.malus = "None"
         else:
-            print("{} est toujours gelé.".format(joueur_att.pokemon.name))
+            print("{} is still frozen.".format(player_att.pokemon.name))
 
-    if joueur_att.pokemon.malus == "paralysie":
-        paralysie = quantum_fight(0.75, backend_sim)
-        if paralysie == 0:
-            print("{} est paralysé, il ne peut pas attaquer.".format(joueur_att.pokemon.name))
+    if player_att.pokemon.malus == "paralysis":
+        paralysis = quantum_fight(0.75, backend_sim)
+        if paralysis == 0:
+            print("{} is paralyzed, he cannot attack.".format(player_att.pokemon.name))
 
-    if degel == 1 and paralysie == 1:
-        print("{} utilise {}".format(joueur_att.pokemon.name, attaque.name))
-        joueur_def.pokemon.degats = joueur_def.pokemon.degats + calcul_dommage(attaque, joueur_att.pokemon,
-                                                                               joueur_def.pokemon, backend_sim)
-        if round(joueur_def.pokemon.pv - joueur_def.pokemon.degats) < 0:
-            print("{} - 0 / {} pv".format(joueur_def.pokemon.name, joueur_def.pokemon.pv))
+    if thaw == 1 and paralysis == 1:
+        print("{} is using {}".format(player_att.pokemon.name, attaque.name))
+        player_def.pokemon.dommages = player_def.pokemon.dommages + calcul_dommage(attaque, player_att.pokemon,
+                                                                               player_def.pokemon, backend_sim)
+        if round(player_def.pokemon.pv - player_def.pokemon.dommages) < 0:
+            print("{} - 0 / {} pv".format(player_def.pokemon.name, player_def.pokemon.pv))
 
         else:
-            print("{} - {} / {} pv".format(joueur_def.pokemon.name, round(joueur_def.pokemon.pv - joueur_def.pokemon.degats),
-                                        joueur_def.pokemon.pv))
+            print("{} - {} / {} pv".format(player_def.pokemon.name, round(player_def.pokemon.pv - player_def.pokemon.dommages),
+                                        player_def.pokemon.pv))
 
-        if joueur_def.pokemon.degats >= joueur_def.pokemon.pv:
-            joueur_def.pokemon.status = 0
-            joueur_def.action = 0
+        if player_def.pokemon.dommages >= player_def.pokemon.pv:
+            player_def.pokemon.status = 0
+            player_def.action = 0

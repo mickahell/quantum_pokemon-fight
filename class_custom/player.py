@@ -1,6 +1,6 @@
-class Joueur:
-    """Classe définissant un joueur :
-    - nom
+class Player:
+    """Class of player :
+    - name
     - status (J1 // J2)
     - action
     - pokemon
