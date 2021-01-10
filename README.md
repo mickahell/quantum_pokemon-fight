@@ -6,6 +6,7 @@
 
 ## How to play
 - Make sure you have python 3 install
+- Then install Qiskit and others python lib :
 ```
 pip install qiskit
 pip install qiskit[visualization]
