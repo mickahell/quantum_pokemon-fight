@@ -1,6 +1,6 @@
 # quantum_pokemon-fight
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Learning how to do
@@ -36,6 +36,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://sites.google.com/view/praveen91299/home"><img src="https://avatars2.githubusercontent.com/u/35169492?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Praveen Jayakumar</b></sub></a><br /><a href="https://github.com/mickahell/quantum_pokemon-fight/pulls?q=is%3Apr+reviewed-by%3APraveen91299" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/mickahell"><img src="https://avatars1.githubusercontent.com/u/20951376?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mica</b></sub></a><br /><a href="#tutorial-mickahell" title="Tutorials">✅</a></td>
   </tr>
 </table>
 
