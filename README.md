@@ -2,6 +2,7 @@
 <!-- DOI-BADGE:START -->
 [![DOI](https://zenodo.org/badge/307622119.svg)](https://zenodo.org/badge/latestdoi/307622119)
 <!-- DOI-BADGE:END -->
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/mickahell/quantum_pokemon-fight.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mickahell/quantum_pokemon-fight/context:python)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
