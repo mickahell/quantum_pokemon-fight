@@ -221,7 +221,6 @@ def quantum_action(defender, attacker, qc_type, backend_sim):
     # Interprete result
     job = execute(qc, backend_sim, shots=512, memory=True)
     result_job = job.result().get_counts()
-    result_memory = job.result().get_memory()
 
     if len(result_job) == 1:
         to_return = 1
