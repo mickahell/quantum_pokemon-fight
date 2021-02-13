@@ -72,7 +72,7 @@ def quantum_attaq(attacker, defender, qc_type, backend_sim):
     c = ClassicalRegister(2, 'c')
     qc_c = QuantumCircuit(check_q, out_q, c)
 
-    # Circuit final
+    # Final circuit 
     qc = qc_qram + qc_type + qc_weak + qc_c
 
     # Init
@@ -326,7 +326,7 @@ def quantum_switch(attacker, defender, qc_type, backend_sim):
     c = ClassicalRegister(1, 'c')
     qc_c = QuantumCircuit(check_q, out_q, c)
 
-    # Circuit final
+    # Final circuit
     qc = qc_qram + qc_type + qc_weak + qc_c
 
     # Init
