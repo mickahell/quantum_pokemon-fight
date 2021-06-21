@@ -5,15 +5,10 @@ from class_custom.player import Player
 from class_custom.pokemon import Pokemon
 from class_custom.type import Type
 from random import *
-from qiskit import Aer, QuantumCircuit, QuantumRegister, IBMQ
+from qiskit import Aer, QuantumCircuit, QuantumRegister
 
 # Init Qasm simulator backend
 qasm = Aer.get_backend('qasm_simulator')
-
-# Init Real Quantum computer
-IBMQ.load_account()
-provider = IBMQ.get_provider('ibm-q')
-quantum_computer = provider.get_backend('ibmq_16_melbourne')
 
 backend_sim = qasm  # Choose your backend : <quantum_computer> or <qasm>
 
