@@ -157,6 +157,15 @@ him = Player("Agatha", "j2")
 ##############################################################
 # GAME
 
+print("""
+###################################################
+# Welcome in the Quantum Pokémon fight - CLI
+# Will you succeed to win against the Quantum AI ?
+#
+# Good Luck !!!
+###################################################
+""")
+
 # Choose of poké
 for i in range(3):
     u = 0
