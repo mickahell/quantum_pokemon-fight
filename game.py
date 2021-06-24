@@ -307,3 +307,4 @@ while play:
                 play = 0
 
 print("The fight is over !")
+actualize = int(input("Push enter to auto F5 the page"))
