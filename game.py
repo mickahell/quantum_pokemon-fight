@@ -7,6 +7,9 @@ from class_custom.type import Type
 from random import *
 from qiskit import Aer, QuantumCircuit, QuantumRegister
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 # Init Qasm simulator backend
 qasm = Aer.get_backend('qasm_simulator')
 
