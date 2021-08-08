@@ -299,6 +299,7 @@ while play:
                 me.addFirst(me.team[next_poke])
                 print("{} call {}".format(me.name, me.pokemon.name))
             else:
+                function.stats("robot")
                 print("{} won !".format(him.name))
                 print("GAME OVER !")
                 play = 0
@@ -314,6 +315,7 @@ while play:
                 him.addFirst(him.team[next_poke])
                 print("{} call {}".format(him.name, him.pokemon.name))
             else:
+                function.stats("human")
                 print("{} loose !".format(him.name))
                 print("YOU WON !")
                 play = 0
