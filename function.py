@@ -145,8 +145,13 @@ def stats(winner):
                 test = 1
 
         if test == 0:
+            if winner == "robot":
+                robot_csv.append(1)
+                human_csv.append(0)
+            else:
+                robot_csv.append(0)
+                human_csv.append(1)
             date_csv.append(date_day)
-            robot_csv.append(1)
 
         csv_file = {'robot': robot_csv, 'human': human_csv, 'date': date_csv}
         df = pd.DataFrame(csv_file)
