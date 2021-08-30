@@ -115,9 +115,9 @@ def action_attack(attaque, player_att, player_def, backend_sim):
             player_def.action = 0
 
 
-def control_input(options, input):
-    if input is not None:
-        if 0 <= input < options:
+def control_input(options, input_ctl):
+    if input_ctl is not None:
+        if 0 <= input_ctl < options:
             return True
     print("Please give a number between 0 and {}.".format(options-1))
     return False
