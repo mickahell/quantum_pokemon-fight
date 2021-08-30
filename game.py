@@ -175,7 +175,12 @@ for i in range(3):
     for y in Pokemon.pokedex:
         print("{} - {}".format(u, y.name))
         u += 1
-    pokemon_j1 = int(input("Choose your Poké by its number : "))
+
+    control = False
+    while not control:
+        pokemon_j1 = int(input("Choose your Poké by its number : "))
+        control = function.control_input(u, pokemon_j1)
+
     me.team.append(Pokemon.pokedex[pokemon_j1])
     Pokemon.pokedex.remove(Pokemon.pokedex[pokemon_j1])
     pokemon_j2 = randint(0, len(Pokemon.pokedex) - 1)
@@ -187,7 +192,11 @@ for i in me.team:
     print("{} - {}".format(u, i.name))
     u += 1
 
-first = int(input("Choose your 1st Poké by its number : "))
+control = False
+while not control:
+    first = int(input("Choose your 1st Poké by its number : "))
+    control = function.control_input(u, first)
+
 print("-----------------------------------------------------------")
 me.addFirst(me.team[first])
 him.addFirst(him.team[randint(0, 2)])
@@ -214,7 +223,10 @@ while play:
         him.addFirst(copy_team[next_poke])
         him.action = 0
 
-    action_j1 = int(input("[0] - Attacks |||||| [1] - Pokémon : "))
+    control = False
+    while not control:
+        action_j1 = int(input("[0] - Attacks |||||| [1] - Pokémon : "))
+        control = function.control_input(2, action_j1)
     print("-----------------------------------------------------------")
     if action_j1 == 0:
         # Attack choose
@@ -222,7 +234,10 @@ while play:
         for i in me.pokemon.attacks:
             print("[{}] {}  |   ".format(u, i.name))
             u += 1
-        attack_j1 = int(input("Choose an attack by its number : "))
+        control = False
+        while not control:
+            attack_j1 = int(input("Choose an attack by its number : "))
+            control = function.control_input(4, attack_j1)
         print("-----------------------------------------------------------")
     else:
         # Switch choose
@@ -230,7 +245,10 @@ while play:
         for i in me.team:
             print("{} - {}".format(u, i.name))
             u += 1
-        next_poke = int(input("Choose the Poké to use by its number : "))
+        control = False
+        while not control:
+            next_poke = int(input("Choose the Poké to use by its number : "))
+            control = function.control_input(u, next_poke)
         print("-----------------------------------------------------------")
         me.addFirst(me.team[next_poke])
         me.action = 0
@@ -294,7 +312,10 @@ while play:
                 for i in me.team:
                     print("{} - {}".format(u, i.name))
                     u += 1
-                next_poke = int(input("Choose a Poké by its number : "))
+                control = False
+                while not control:
+                    next_poke = int(input("Choose a Poké by its number : "))
+                    control = function.control_input(u, next_poke)
                 print("-----------------------------------------------------------")
                 me.addFirst(me.team[next_poke])
                 print("{} call {}".format(me.name, me.pokemon.name))

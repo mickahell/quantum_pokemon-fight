@@ -115,6 +115,14 @@ def action_attack(attaque, player_att, player_def, backend_sim):
             player_def.action = 0
 
 
+def control_input(options, input):
+    if input is not None:
+        if 0 <= input < options:
+            return True
+    print("Please give a number between 0 and {}.".format(options-1))
+    return False
+
+
 def stats(winner):
     file_csv = 'stats/qpokemon_results.csv'
     date_x = datetime.datetime.now()
