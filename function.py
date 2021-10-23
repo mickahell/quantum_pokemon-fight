@@ -1,6 +1,6 @@
 import math
 from qiskit import QuantumCircuit, execute
-from os
+import os
 import requests
 
 
