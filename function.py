@@ -124,24 +124,25 @@ def control_input(options, input_ctl):
 
 def stats(winner):
     TOKEN = os.environ.get("GITHUB_TOKEN")
-    if TOKEN != None:
+
+    if TOKEN is not None:
         headers = {
-          "Accept": "application/vnd.github.v3+json",
-          "Authorization": f"token {TOKEN}",
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization": f"token {TOKEN}",
         }
 
         data = {
-          "event_type": "games-stats",
-          "client_payload": {
-            "game": "qpokemon",
-            "winner": winner
-          }
+            "event_type": "games-stats",
+            "client_payload": {
+                "game": "qpokemon",
+                "winner": f"{winner}"
+            }
         }
 
-        requests.post(
-          f"https://api.github.com/repos/mickahell/robots-data/dispatches",
-          data=data,
-          headers=headers
+        r = requests.post(
+            url="https://api.github.com/repos/mickahell/robots-data/dispatches",
+            headers=headers,
+            json=data
         )
 
     else:
