@@ -192,6 +192,12 @@ for i in me.team:
     print("{} - {}".format(u, i.name))
     u += 1
 
+me_team = []
+him_team = []
+for i, y in zip(me.team, him.team):
+    me_team.append(i.name)
+    him_team.append(y.name)
+
 control = False
 while not control:
     first = int(input("Choose your 1st Poké by its number : "))
@@ -321,6 +327,7 @@ while play:
                 print("{} call {}".format(me.name, me.pokemon.name))
             else:
                 function.stats("robot")
+                function.team_stats(winner=him_team, looser=me_team)
                 print("{} won !".format(him.name))
                 print("GAME OVER !")
                 play = 0
@@ -337,6 +344,7 @@ while play:
                 print("{} call {}".format(him.name, him.pokemon.name))
             else:
                 function.stats("human")
+                function.team_stats(winner=me_team, looser=him_team)
                 print("{} loose !".format(him.name))
                 print("YOU WON !")
                 play = 0
