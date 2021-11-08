@@ -4,9 +4,9 @@ from class_custom.pokemon import Pokemon
 from random import *
 
 
-def team(me, him):
+def team(me, him, nb_team):
     # Choose of poké
-    for i in range(3):
+    for i in range(nb_team):
         u = 0
         for y in Pokemon.pokedex:
             print("{} - {}".format(u, y.name))
