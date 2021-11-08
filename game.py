@@ -169,9 +169,8 @@ print("""
 ###################################################
 """)
 
-main.team(me, him)
+main.team(me, him, nb_team=3)
 winner, looser = main.battle(me, him)
-
 
 function.stats(winner.being)
 function.team_stats(winner=winner.register_team, looser=looser.register_team)
