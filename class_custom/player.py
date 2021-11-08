@@ -5,7 +5,8 @@ class Player:
     - being
     - action
     - pokemon
-    - team"""
+    - team
+    - register_team"""
 
     def __init__(self, name, status, being):
         self.name = name
@@ -13,6 +14,7 @@ class Player:
         self.being = being
         self.action = 0
         self.team = []
+        self.register_team = []
 
     def addFirst(self, pokemon):
         self.pokemon = pokemon
