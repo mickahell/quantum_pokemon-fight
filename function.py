@@ -1,7 +1,5 @@
 import math
 from qiskit import QuantumCircuit, execute
-import os
-import requests
 
 
 def quantum_fight(psi, backend_sim):
@@ -120,57 +118,3 @@ def control_input(options, input_ctl):
             return True
     print("Please give a number between 0 and {}.".format(options-1))
     return False
-
-
-def stats(winner):
-    TOKEN = os.environ.get("GITHUB_TOKEN")
-
-    if TOKEN is not None:
-        headers = {
-            "Accept": "application/vnd.github.v3+json",
-            "Authorization": f"token {TOKEN}",
-        }
-
-        data = {
-            "event_type": "games-stats",
-            "client_payload": {
-                "game": "qpokemon",
-                "winner": f"{winner}"
-            }
-        }
-
-        requests.post(
-            url="https://api.github.com/repos/mickahell/robots-data/dispatches",
-            headers=headers,
-            json=data
-        )
-
-    else:
-        print("Your token is empty ! The stats aren't updated.")
-
-
-def team_stats(winner, looser):
-    TOKEN = os.environ.get("GITHUB_TOKEN")
-
-    if TOKEN is not None:
-        headers = {
-            "Accept": "application/vnd.github.v3+json",
-            "Authorization": f"token {TOKEN}",
-        }
-
-        data = {
-            "event_type": "qpokemon-team-stats",
-            "client_payload": {
-                "winner": [i for i in winner],
-                "looser": [i for i in looser]
-            }
-        }
-
-        requests.post(
-            url="https://api.github.com/repos/mickahell/robots-data/dispatches",
-            headers=headers,
-            json=data
-        )
-
-    else:
-        print("Your token is empty ! The stats aren't updated.")
