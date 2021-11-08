@@ -139,7 +139,7 @@ def stats(winner):
             }
         }
 
-        r = requests.post(
+        requests.post(
             url="https://api.github.com/repos/mickahell/robots-data/dispatches",
             headers=headers,
             json=data
@@ -166,7 +166,7 @@ def team_stats(winner, looser):
             }
         }
 
-        r = requests.post(
+        requests.post(
             url="https://api.github.com/repos/mickahell/robots-data/dispatches",
             headers=headers,
             json=data
