@@ -1,4 +1,4 @@
-import go
+import main
 import function
 from class_custom.attacks import Attack
 from class_custom.player import Player
@@ -169,8 +169,8 @@ print("""
 ###################################################
 """)
 
-go.team(me, him)
-winner, looser = go.battle(me, him)
+main.team(me, him)
+winner, looser = main.battle(me, him)
 
 
 function.stats(winner.being)
