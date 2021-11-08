@@ -1,5 +1,5 @@
 import main
-import function
+import data
 from class_custom.attacks import Attack
 from class_custom.player import Player
 from class_custom.pokemon import Pokemon
@@ -172,8 +172,8 @@ print("""
 main.team(me, him, nb_team=3)
 winner, looser = main.battle(me, him)
 
-function.stats(winner.being)
-function.team_stats(winner=winner.register_team, looser=looser.register_team)
+data.stats(winner.being)
+data.team_stats(winner=winner.register_team, looser=looser.register_team)
 
 print("The fight is over !")
 actualize = str(input("Push enter to auto F5 the page") or "42")
