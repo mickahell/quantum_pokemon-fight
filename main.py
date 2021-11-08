@@ -28,11 +28,9 @@ def team(me, him):
         print("{} - {}".format(u, i.name))
         u += 1
 
-    me_team = []
-    him_team = []
     for i, y in zip(me.team, him.team):
-        me_team.append(i.name)
-        him_team.append(y.name)
+        me.register_team.append(i.name)
+        him.register_team.append(y.name)
 
     control = False
     while not control:
