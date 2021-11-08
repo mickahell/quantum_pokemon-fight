@@ -44,7 +44,7 @@ def team(me, him):
     him.addFirst(him.team[randint(0, 2)])
 
 
-def turn(me, him):
+def battle(me, him):
     play = 1
     # Round
     while play:
@@ -164,11 +164,9 @@ def turn(me, him):
                     me.addFirst(me.team[next_poke])
                     print("{} call {}".format(me.name, me.pokemon.name))
                 else:
-                    function.stats("robot")
-                    function.team_stats(winner=him_team, looser=me_team)
                     print("{} won !".format(him.name))
                     print("GAME OVER !")
-                    return him
+                    return him, me
             if him.pokemon.status == 0:
                 print("{} is KO !".format(him.pokemon.name))
                 him.team.remove(him.pokemon)
@@ -181,9 +179,7 @@ def turn(me, him):
                     him.addFirst(him.team[next_poke])
                     print("{} call {}".format(him.name, him.pokemon.name))
                 else:
-                    function.stats("human")
-                    function.team_stats(winner=me_team, looser=him_team)
                     print("{} loose !".format(him.name))
                     print("YOU WON !")
-                    return me
+                    return me, him
   
