@@ -1,9 +1,6 @@
 import ia
 import function
-from class_custom.attacks import Attack
-from class_custom.player import Player
 from class_custom.pokemon import Pokemon
-from class_custom.type import Type
 from random import *
 
 
@@ -172,7 +169,6 @@ def turn(me, him):
                     print("{} won !".format(him.name))
                     print("GAME OVER !")
                     return him
-                    play = 0
             if him.pokemon.status == 0:
                 print("{} is KO !".format(him.pokemon.name))
                 him.team.remove(him.pokemon)
@@ -190,5 +186,4 @@ def turn(me, him):
                     print("{} loose !".format(him.name))
                     print("YOU WON !")
                     return me
-                    play = 0
   
