@@ -1,4 +1,5 @@
 import go
+import function
 from class_custom.attacks import Attack
 from class_custom.player import Player
 from class_custom.pokemon import Pokemon
@@ -153,8 +154,8 @@ abomasnow.learn_attacks([ice_beam, leaf_storm, earthquake, giga_impact])
 toxtricity.learn_attacks([sludge_bomb, thunder, throat_chop, fire_punch])
 
 # Player creation
-me = Player("Oak", "j1")
-him = Player("Agatha", "j2")
+me = Player("Oak", "j1", "human")
+him = Player("Agatha", "j2", "robot")
 
 ##############################################################
 # GAME
@@ -169,7 +170,11 @@ print("""
 """)
 
 go.team(me, him)
-winner = go.turn(me, him)
+winner, looser = go.battle(me, him)
+
+
+function.stats(winner.being)
+function.team_stats(winner=winner.register_team, looser=looser.register_team)
 
 print("The fight is over !")
 actualize = str(input("Push enter to auto F5 the page") or "42")
