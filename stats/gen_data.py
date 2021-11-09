@@ -37,7 +37,7 @@ def team_stats(csv, pokemon, has_win):
         print("CSV doesn't exist !")
 
 
-def gen_team_data(pokemon: str, has_win: str)
+def gen_team_data(pokemon: str, has_win: str):
     current_dir = path.dirname(os.path.abspath(__file__))
     with open(
                 "{}/../team_stats.csv".format(current_dir), "r"
