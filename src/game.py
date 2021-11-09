@@ -1,9 +1,9 @@
-import main
-import data
-from class_custom.attacks import Attack
-from class_custom.player import Player
-from class_custom.pokemon import Pokemon
-from class_custom.type import Type
+import src.main
+import stats.data
+from src.class_custom.attacks import Attack
+from src.class_custom.player import Player
+from src.class_custom.pokemon import Pokemon
+from src.class_custom.type import Type
 from random import *
 from qiskit import Aer, QuantumCircuit, QuantumRegister
 

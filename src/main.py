@@ -1,6 +1,6 @@
-import ia
-import function
-from class_custom.pokemon import Pokemon
+import src.ia
+import src.function
+from src.class_custom.pokemon import Pokemon
 from random import *
 
 
