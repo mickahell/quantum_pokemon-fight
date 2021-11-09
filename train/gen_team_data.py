@@ -1,4 +1,4 @@
-import src.main
+import train.robot_vs_robot
 import stats.gen_data
 from src.class_custom.attacks import Attack
 from src.class_custom.player import Player
@@ -170,12 +170,12 @@ print("""
 """)
 
 for u in range(20):
-    main.team(me, him, nb_team=3)
-    winner, looser = main.battle(me, him)
+    robot_vs_robot.team(me, him, nb_team=3)
+    winner, looser = main.robot_vs_robot(me, him)
 
     for i, y in zip(winner.register_team, looser.register_team):
-        data.gen_team_data(pokemon=i, has_win="yes")
-        data.gen_team_data(pokemon=y, has_win="no")
+        gen_data.gen_team_data(pokemon=i, has_win="yes")
+        gen_data.gen_team_data(pokemon=y, has_win="no")
 
     print("Fight {} is finished !".format(u+1))
     
