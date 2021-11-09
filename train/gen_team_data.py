@@ -1,5 +1,5 @@
 import src.main
-import stats.data
+import stats.gen_data
 from src.class_custom.attacks import Attack
 from src.class_custom.player import Player
 from src.class_custom.pokemon import Pokemon
@@ -169,11 +169,15 @@ print("""
 ###################################################
 """)
 
-main.team(me, him, nb_team=3)
-winner, looser = main.battle(me, him)
+for u in range(20):
+    main.team(me, him, nb_team=3)
+    winner, looser = main.battle(me, him)
 
-data.stats(winner.being)
-data.team_stats(winner=winner.register_team, looser=looser.register_team)
+    for i, y in zip(winner.register_team, looser.register_team):
+        data.gen_team_data(pokemon=i, has_win="yes")
+        data.gen_team_data(pokemon=y, has_win="no")
 
-print("The fight is over !")
-actualize = str(input("Push enter to auto F5 the page") or "42")
+    print("Fight {} is finished !".format(u+1))
+    
+print("Gen team data program ended !")
+    
