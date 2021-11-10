@@ -1,5 +1,5 @@
-import src.ia
-import src.function
+from src.ia import quantum_switch, quantum_attaq, quantum_action
+from src.function import control_input, quantum_fight, action_attack
 from src.class_custom.pokemon import Pokemon
 from random import *
 
@@ -15,7 +15,7 @@ def team(me, him, nb_team):
         control = False
         while not control:
             pokemon_j1 = int(input("Choose your Poké by its number : "))
-            control = function.control_input(u, pokemon_j1)
+            control = control_input(u, pokemon_j1)
 
         me.team.append(Pokemon.pokedex[pokemon_j1])
         Pokemon.pokedex.remove(Pokemon.pokedex[pokemon_j1])
@@ -35,7 +35,7 @@ def team(me, him, nb_team):
     control = False
     while not control:
         first = int(input("Choose your 1st Poké by its number : "))
-        control = function.control_input(u, first)
+        control = control_input(u, first)
 
     print("-----------------------------------------------------------")
     me.addFirst(me.team[first])
@@ -53,22 +53,22 @@ def battle(me, him):
         him.action = 1
         me.action = 1
 
-        action_j2 = ia.quantum_action(him.pokemon, me.pokemon, qc_type, backend_sim)
+        action_j2 = quantum_action(him.pokemon, me.pokemon, qc_type, backend_sim)
         if action_j2 == 0 or len(him.team) == 1:
-            attack_j2 = ia.quantum_attaq(him.pokemon, me.pokemon, qc_type, backend_sim)
+            attack_j2 = quantum_attaq(him.pokemon, me.pokemon, qc_type, backend_sim)
         else:
             copy_team = []
             for i in him.team:
                 if i != him.pokemon:
                     copy_team.append(i)
-            next_poke = ia.quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
+            next_poke = quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
             him.addFirst(copy_team[next_poke])
             him.action = 0
 
         control = False
         while not control:
             action_j1 = int(input("[0] - Attacks |||||| [1] - Pokémon : "))
-            control = function.control_input(2, action_j1)
+            control = control_input(2, action_j1)
         print("-----------------------------------------------------------")
         if action_j1 == 0:
             # Attack choose
@@ -79,7 +79,7 @@ def battle(me, him):
             control = False
             while not control:
                 attack_j1 = int(input("Choose an attack by its number : "))
-                control = function.control_input(4, attack_j1)
+                control = control_input(4, attack_j1)
             print("-----------------------------------------------------------")
         else:
             # Switch choose
@@ -90,7 +90,7 @@ def battle(me, him):
             control = False
             while not control:
                 next_poke = int(input("Choose the Poké to use by its number : "))
-                control = function.control_input(u, next_poke)
+                control = control_input(u, next_poke)
             print("-----------------------------------------------------------")
             me.addFirst(me.team[next_poke])
             me.action = 0
@@ -105,23 +105,23 @@ def battle(me, him):
             # The fastest !
             if him.action == 1 and me.action == 1:
                 if me.pokemon.speed > him.pokemon.speed:
-                    function.action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
+                    action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
                 elif me.pokemon.speed < him.pokemon.speed:
-                    function.action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
+                    action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
                 # Speedtie
                 else:
-                    speetie = function.quantum_fight(0.5)
+                    speetie = quantum_fight(0.5)
                     if speetie == 0:
-                        function.action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
+                        action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
                     else:
-                        function.action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
+                        action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
             # The lowest !
             else:
                 if me.action == 1 and me.pokemon.status == 1:
-                    function.action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
+                    action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
 
                 elif him.action == 1 and him.pokemon.status == 1:
-                    function.action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
+                    action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
 
         # Burn / Poison
         if me.pokemon.malus != "None" and me.pokemon.status != 0:
@@ -157,7 +157,7 @@ def battle(me, him):
                     control = False
                     while not control:
                         next_poke = int(input("Choose a Poké by its number : "))
-                        control = function.control_input(u, next_poke)
+                        control = control_input(u, next_poke)
                     print("-----------------------------------------------------------")
                     me.addFirst(me.team[next_poke])
                     print("{} call {}".format(me.name, me.pokemon.name))
@@ -171,7 +171,7 @@ def battle(me, him):
                 # Switch adversaire
                 if len(him.team) > 0:
                     if len(him.team) > 1:
-                        next_poke = ia.quantum_switch(him.team, me.pokemon, qc_type, backend_sim)
+                        next_poke = quantum_switch(him.team, me.pokemon, qc_type, backend_sim)
                     else:
                         next_poke = 0
                     him.addFirst(him.team[next_poke])
