@@ -43,6 +43,7 @@ def battle(me, him, qc_type, backend_sim):
                 if i != him.pokemon:
                     copy_team.append(i)
             next_poke = quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
+            print("Bug next poke : {}, taille de him {}".format(next_poke, len(copy_team)))
             him.addFirst(copy_team[next_poke])
             him.action = 0
 
