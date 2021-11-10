@@ -1,5 +1,5 @@
-import src.main
-import stats.data
+from src.main import team, battle
+from stats.data import stats, team_stats
 from src.class_custom.attacks import Attack
 from src.class_custom.player import Player
 from src.class_custom.pokemon import Pokemon
@@ -169,11 +169,11 @@ print("""
 ###################################################
 """)
 
-main.team(me, him, nb_team=3)
-winner, looser = main.battle(me, him)
+team(me, him, nb_team=3)
+winner, looser = battle(me, him)
 
-data.stats(winner.being)
-data.team_stats(winner=winner.register_team, looser=looser.register_team)
+stats(winner.being)
+team_stats(winner=winner.register_team, looser=looser.register_team)
 
 print("The fight is over !")
 actualize = str(input("Push enter to auto F5 the page") or "42")
