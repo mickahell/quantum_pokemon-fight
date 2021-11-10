@@ -40,6 +40,6 @@ def team_stats(csv, pokemon, has_win):
 def gen_team_data(pokemon: str, has_win: str):
     current_dir = path.dirname(os.path.abspath(__file__))
     with open(
-                "{}/../team_stats.csv".format(current_dir), "r"
-            ) as csv:
+        "{}/../team_stats.csv".format(current_dir), "r"
+    ) as csv:
     team_stats(csv=csv, pokemon=pokemon, has_win=has_win)
