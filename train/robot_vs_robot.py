@@ -19,8 +19,8 @@ def team(me, him, nb_team):
         him.register_team.append(y.name)
 
     print("-----------------------------------------------------------")
-    me.addFirst(me.team[randint(0, 2)])
-    him.addFirst(him.team[randint(0, 2)])
+    me.addFirst(me.team[randint(0, len(me.team)-1)])
+    him.addFirst(him.team[randint(0, len(him.team)-1)])
 
 
 def battle(me, him, qc_type, backend_sim):
