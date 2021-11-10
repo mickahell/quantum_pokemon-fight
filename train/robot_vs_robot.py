@@ -1,5 +1,5 @@
 from src.ia import quantum_switch, quantum_attaq, quantum_action
-from src.function import uantum_fight, action_attack
+from src.function import quantum_fight, action_attack
 from src.class_custom.pokemon import Pokemon
 from random import *
 
@@ -23,7 +23,7 @@ def team(me, him, nb_team):
     him.addFirst(him.team[randint(0, 2)])
 
 
-def battle(me, him):
+def battle(me, him, qc_type, backend_sim):
     play = 1
     # Round
     while play:

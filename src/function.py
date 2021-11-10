@@ -99,13 +99,14 @@ def action_attack(attaque, player_att, player_def, backend_sim):
     if thaw == 1 and paralysis == 1:
         print("{} is using {}".format(player_att.pokemon.name, attaque.name))
         player_def.pokemon.dommages = player_def.pokemon.dommages + calcul_dommage(attaque, player_att.pokemon,
-                                                                               player_def.pokemon, backend_sim)
+                                                                                   player_def.pokemon, backend_sim)
         if round(player_def.pokemon.pv - player_def.pokemon.dommages) < 0:
             print("{} - 0 / {} pv".format(player_def.pokemon.name, player_def.pokemon.pv))
 
         else:
-            print("{} - {} / {} pv".format(player_def.pokemon.name, round(player_def.pokemon.pv - player_def.pokemon.dommages),
-                                        player_def.pokemon.pv))
+            print("{} - {} / {} pv".format(player_def.pokemon.name,
+                                           round(player_def.pokemon.pv - player_def.pokemon.dommages),
+                                           player_def.pokemon.pv))
 
         if player_def.pokemon.dommages >= player_def.pokemon.pv:
             player_def.pokemon.status = 0
@@ -116,5 +117,5 @@ def control_input(options, input_ctl):
     if input_ctl is not None:
         if 0 <= input_ctl < options:
             return True
-    print("Please give a number between 0 and {}.".format(options-1))
+    print("Please give a number between 0 and {}.".format(options - 1))
     return False

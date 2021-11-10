@@ -42,7 +42,7 @@ def team(me, him, nb_team):
     him.addFirst(him.team[randint(0, 2)])
 
 
-def battle(me, him):
+def battle(me, him, qc_type, backend_sim):
     play = 1
     # Round
     while play:
