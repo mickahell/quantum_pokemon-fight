@@ -17,7 +17,6 @@
 - Then install Qiskit and others python lib :
 ```
 pip install qiskit
-pip install qiskit[visualization]
 pip install numpy
 pip install matplotlib
 ```
