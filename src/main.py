@@ -61,7 +61,10 @@ def battle(me, him, qc_type, backend_sim):
             for i in him.team:
                 if i != him.pokemon:
                     copy_team.append(i)
-            next_poke = quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
+            if len(copy_team) > 1:
+                next_poke = quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
+            else:
+                next_poke = 0
             him.addFirst(copy_team[next_poke])
             him.action = 0
 

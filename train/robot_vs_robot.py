@@ -42,8 +42,10 @@ def battle(me, him, qc_type, backend_sim):
             for i in him.team:
                 if i != him.pokemon:
                     copy_team.append(i)
-            next_poke = quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
-            print("Bug next poke : {}, taille de him {}".format(next_poke, len(copy_team)))
+            if len(copy_team) > 1:
+                next_poke = quantum_switch(copy_team, me.pokemon, qc_type, backend_sim)
+            else:
+                next_poke = 0
             him.addFirst(copy_team[next_poke])
             him.action = 0
 
@@ -55,7 +57,10 @@ def battle(me, him, qc_type, backend_sim):
             for i in me.team:
                 if i != me.pokemon:
                     copy_team.append(i)
-            next_poke = quantum_switch(copy_team, him.pokemon, qc_type, backend_sim)
+            if len(copy_team) > 1:
+                next_poke = quantum_switch(copy_team, him.pokemon, qc_type, backend_sim)
+            else:
+                next_poke = 0
             me.addFirst(copy_team[next_poke])
             me.action = 0
         print("-----------------------------------------------------------")
@@ -75,7 +80,7 @@ def battle(me, him, qc_type, backend_sim):
                     action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
                 # Speedtie
                 else:
-                    speetie = quantum_fight(0.5)
+                    speetie = quantum_fight(0.5, backend_sim)
                     if speetie == 0:
                         action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
                     else:
