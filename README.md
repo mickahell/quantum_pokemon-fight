@@ -23,7 +23,7 @@ pip install matplotlib
 ```
 
 - Finaly run the game :
-```python src/ame.py```
+```python src/game.py```
 
 ## ENJOY ;)
 
