@@ -1,0 +1,4 @@
+fire
+qiskit
+requests
+pytest==6.2.5

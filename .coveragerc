@@ -1,0 +1,9 @@
+[run]
+omit =
+    # omit template files
+    .tox/*
+    .github/*
+    stats/*
+    train/*
+    images_jupyter/*
+    quantum_pokemonFight.ipynb
