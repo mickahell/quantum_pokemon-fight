@@ -18,4 +18,3 @@ class Player:
 
     def addFirst(self, pokemon):
         self.pokemon = pokemon
-

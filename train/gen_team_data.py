@@ -10,12 +10,11 @@ import warnings
 
 
 class Team:
-
     def __init__(self):
-        warnings.filterwarnings('ignore', category=DeprecationWarning)
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
 
         # Init Qasm simulator backend
-        qasm = Aer.get_backend('qasm_simulator')
+        qasm = Aer.get_backend("qasm_simulator")
 
         backend_sim = qasm  # Choose your backend : <quantum_computer> or <qasm>
 
@@ -101,20 +100,34 @@ class Team:
             steel.add_info(resistance, weakness, imunite)
 
             # type qubits creation
-            fire.qubit = QuantumRegister(1, 'fire')
-            normal.qubit = QuantumRegister(1, 'normal')
-            water.qubit = QuantumRegister(1, 'water')
-            grass.qubit = QuantumRegister(1, 'grass')
-            electric.qubit = QuantumRegister(1, 'electric')
-            fly.qubit = QuantumRegister(1, 'fly')
-            poison.qubit = QuantumRegister(1, 'poison')
-            bug.qubit = QuantumRegister(1, 'bug')
-            ghost.qubit = QuantumRegister(1, 'ghost')
-            ground.qubit = QuantumRegister(1, 'ground')
-            dark.qubit = QuantumRegister(1, 'dark')
-            ice.qubit = QuantumRegister(1, 'ice')
-            steel.qubit = QuantumRegister(1, 'steel')
-            qc_type = QuantumCircuit(steel.qubit, fire.qubit, normal.qubit, water.qubit, grass.qubit, electric.qubit, fly.qubit, poison.qubit, bug.qubit, ghost.qubit, ground.qubit, dark.qubit, ice.qubit)
+            fire.qubit = QuantumRegister(1, "fire")
+            normal.qubit = QuantumRegister(1, "normal")
+            water.qubit = QuantumRegister(1, "water")
+            grass.qubit = QuantumRegister(1, "grass")
+            electric.qubit = QuantumRegister(1, "electric")
+            fly.qubit = QuantumRegister(1, "fly")
+            poison.qubit = QuantumRegister(1, "poison")
+            bug.qubit = QuantumRegister(1, "bug")
+            ghost.qubit = QuantumRegister(1, "ghost")
+            ground.qubit = QuantumRegister(1, "ground")
+            dark.qubit = QuantumRegister(1, "dark")
+            ice.qubit = QuantumRegister(1, "ice")
+            steel.qubit = QuantumRegister(1, "steel")
+            qc_type = QuantumCircuit(
+                steel.qubit,
+                fire.qubit,
+                normal.qubit,
+                water.qubit,
+                grass.qubit,
+                electric.qubit,
+                fly.qubit,
+                poison.qubit,
+                bug.qubit,
+                ghost.qubit,
+                ground.qubit,
+                dark.qubit,
+                ice.qubit,
+            )
 
             # Attacks creation
             fire_blast = Attack("Fire Blast", fire, 110, 0.85, "special")
@@ -146,7 +159,9 @@ class Team:
             glaceon = Pokemon("Glaceon", [ice], 334, 219, 319, 359, 289, 229)
             porygonz = Pokemon("Porygon-Z", [normal], 374, 259, 239, 369, 249, 279)
             abomasnow = Pokemon("Abomasnow", [grass, ice], 384, 283, 249, 283, 269, 219)
-            toxtricity = Pokemon("Toxtricity", [electric, poison], 354, 295, 239, 327, 239, 249)
+            toxtricity = Pokemon(
+                "Toxtricity", [electric, poison], 354, 295, 239, 327, 239, 249
+            )
 
             # Attacks learning
             charizard.learn_attacks([fire_blast, hurricane, earthquake, leaf_storm])
@@ -165,14 +180,16 @@ class Team:
             ##############################################################
             # GAME
 
-            print("""
+            print(
+                """
 ###################################################
 # Welcome in the Quantum Pokémon fight - CLI
 # Will you succeed to win against the Quantum AI ?
 #
 # Good Luck !!!
 ###################################################
-            """)
+            """
+            )
 
             team(me, him, nb_team=3)
             winner, looser = battle(me, him, qc_type, backend_sim)
@@ -181,7 +198,6 @@ class Team:
                 gen_team_data(pokemon=i, has_win="yes")
                 gen_team_data(pokemon=y, has_win="no")
 
-            print("Fight {} is finished !".format(u+1))
+            print("Fight {} is finished !".format(u + 1))
 
         print("Gen team data program ended !")
-

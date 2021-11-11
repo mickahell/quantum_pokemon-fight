@@ -19,8 +19,8 @@ def team(me, him, nb_team):
         him.register_team.append(y.name)
 
     print("-----------------------------------------------------------")
-    me.addFirst(me.team[randint(0, len(me.team)-1)])
-    him.addFirst(him.team[randint(0, len(him.team)-1)])
+    me.addFirst(me.team[randint(0, len(me.team) - 1)])
+    him.addFirst(him.team[randint(0, len(him.team) - 1)])
 
 
 def battle(me, him, qc_type, backend_sim):
@@ -71,7 +71,9 @@ def battle(me, him, qc_type, backend_sim):
             print("{} call {}".format(him.name, him.pokemon.name))
 
         # Who first ?
-        while (him.action == 1 or me.action == 1) and (him.pokemon.status == 1 and me.pokemon.status == 1):
+        while (him.action == 1 or me.action == 1) and (
+            him.pokemon.status == 1 and me.pokemon.status == 1
+        ):
             # The fastest !
             if him.action == 1 and me.action == 1:
                 if me.pokemon.speed > him.pokemon.speed:
@@ -82,9 +84,13 @@ def battle(me, him, qc_type, backend_sim):
                 else:
                     speetie = quantum_fight(0.5, backend_sim)
                     if speetie == 0:
-                        action_attack(me.pokemon.attacks[attack_j1], me, him, backend_sim)
+                        action_attack(
+                            me.pokemon.attacks[attack_j1], me, him, backend_sim
+                        )
                     else:
-                        action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
+                        action_attack(
+                            him.pokemon.attacks[attack_j2], him, me, backend_sim
+                        )
             # The lowest !
             else:
                 if me.action == 1 and me.pokemon.status == 1:
@@ -96,19 +102,35 @@ def battle(me, him, qc_type, backend_sim):
         # Burn / Poison
         if me.pokemon.malus != "None" and me.pokemon.status != 0:
             if me.pokemon.malus == "poison":
-                print("{} suffers from poison, he loose {} pv".format(me.pokemon.name, round(me.pokemon.pv/8)))
-                me.pokemon.dommages += round(me.pokemon.pv/8)
+                print(
+                    "{} suffers from poison, he loose {} pv".format(
+                        me.pokemon.name, round(me.pokemon.pv / 8)
+                    )
+                )
+                me.pokemon.dommages += round(me.pokemon.pv / 8)
             if me.pokemon.malus == "burn":
-                print("{} suffers from his burn, he loose {} pv".format(me.pokemon.name, round(me.pokemon.pv / 16)))
+                print(
+                    "{} suffers from his burn, he loose {} pv".format(
+                        me.pokemon.name, round(me.pokemon.pv / 16)
+                    )
+                )
                 me.pokemon.dommages += round(me.pokemon.pv / 16)
             if me.pokemon.dommages >= me.pokemon.pv:
                 me.pokemon.status = 0
         if him.pokemon.malus != "None" and him.pokemon.status != 0:
             if him.pokemon.malus == "poison":
-                print("{} suffers from poison, he loose {} pv".format(him.pokemon.name, round(him.pokemon.pv / 8)))
+                print(
+                    "{} suffers from poison, he loose {} pv".format(
+                        him.pokemon.name, round(him.pokemon.pv / 8)
+                    )
+                )
                 him.pokemon.dommages += round(him.pokemon.pv / 8)
             if him.pokemon.malus == "burn":
-                print("{} suffers from his burn, he loose {} pv".format(him.pokemon.name, round(him.pokemon.pv / 16)))
+                print(
+                    "{} suffers from his burn, he loose {} pv".format(
+                        him.pokemon.name, round(him.pokemon.pv / 16)
+                    )
+                )
                 him.pokemon.dommages += round(him.pokemon.pv / 16)
             if him.pokemon.dommages >= him.pokemon.pv:
                 him.pokemon.status = 0
@@ -121,7 +143,9 @@ def battle(me, him, qc_type, backend_sim):
                 # Switch me
                 if len(me.team) > 0:
                     if len(me.team) > 1:
-                        next_poke = quantum_switch(me.team, him.pokemon, qc_type, backend_sim)
+                        next_poke = quantum_switch(
+                            me.team, him.pokemon, qc_type, backend_sim
+                        )
                     else:
                         next_poke = 0
                     me.addFirst(me.team[next_poke])
@@ -136,7 +160,9 @@ def battle(me, him, qc_type, backend_sim):
                 # Switch adversaire
                 if len(him.team) > 0:
                     if len(him.team) > 1:
-                        next_poke = quantum_switch(him.team, me.pokemon, qc_type, backend_sim)
+                        next_poke = quantum_switch(
+                            him.team, me.pokemon, qc_type, backend_sim
+                        )
                     else:
                         next_poke = 0
                     him.addFirst(him.team[next_poke])

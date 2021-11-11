@@ -7,9 +7,9 @@ def team_stats(csv, pokemon, has_win):
 
     csv_file = pd.read_csv(file_csv)
 
-    pokemon_csv = csv_file['pokemon'].tolist()
-    win_csv = csv_file['win'].tolist()
-    loose_csv = csv_file['loo'].tolist()
+    pokemon_csv = csv_file["pokemon"].tolist()
+    win_csv = csv_file["win"].tolist()
+    loose_csv = csv_file["loo"].tolist()
 
     for i in range(len(pokemon_csv)):
         if pokemon == pokemon_csv[i]:
@@ -35,9 +35,9 @@ def unity_stats(csv, opponent, has_win):
 
     csv_file = pd.read_csv(file_csv)
 
-    pokemon_csv = csv_file['opponent'].tolist()
-    win_csv = csv_file['win'].tolist()
-    loose_csv = csv_file['loo'].tolist()
+    pokemon_csv = csv_file["opponent"].tolist()
+    win_csv = csv_file["win"].tolist()
+    loose_csv = csv_file["loo"].tolist()
 
     test = 0
     for i in range(len(pokemon_csv)):
@@ -67,14 +67,14 @@ def gen_unity_data(winner: str, looser: str):
     current_dir = path.dirname(path.abspath(__file__))
     csv_winner = "{}/data/{}.csv".format(current_dir, winner)
     if not path.exists(csv_winner):
-        with open(csv_winner, 'w') as f:
+        with open(csv_winner, "w") as f:
             f.write("opponent,win,loo")
     print("Generate data for : ", winner)
     unity_stats(csv=str(csv_winner), opponent=looser, has_win="yes")
 
     csv_looser = "{}/data/{}.csv".format(current_dir, looser)
     if not path.exists(csv_looser):
-        with open(csv_looser, 'w') as f:
+        with open(csv_looser, "w") as f:
             f.write("opponent,win,loo")
     print("Generate data for : ", looser)
     unity_stats(csv=str(csv_looser), opponent=winner, has_win="no")

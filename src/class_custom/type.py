@@ -4,7 +4,7 @@ class Type:
     - résistance []
     - weakness []
     - imunite []
-    - qubit """
+    - qubit"""
 
     def __init__(self, name):
         self.name = name
@@ -20,8 +20,14 @@ class Type:
 
     def show_info(self):
         if self.imunite:
-            print("{} | Resistance : {}, Weakness : {}, Imunity : {}".format(
-                self.name, self.resistance, self.weakness, self.imunite))
+            print(
+                "{} | Resistance : {}, Weakness : {}, Imunity : {}".format(
+                    self.name, self.resistance, self.weakness, self.imunite
+                )
+            )
         else:
-            print("{} | Resistance : {}, Weakness : {}".format(
-                self.name, self.resistance, self.weakness))
+            print(
+                "{} | Resistance : {}, Weakness : {}".format(
+                    self.name, self.resistance, self.weakness
+                )
+            )

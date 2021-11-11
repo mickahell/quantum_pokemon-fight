@@ -38,11 +38,31 @@ def calcul_dommage(attac, pokemon_att, pokemon_def, backend_sim):
             print("critical hit !")
 
         if attac.status == "physical":
-            dommages = ((((100 * 0.4 + 2) * pokemon_att.points_attack * attac.power) / (
-                    pokemon_def.points_defense * 50)) + 2) * STAB * RESISTANCE * CRIT
+            dommages = (
+                (
+                    (
+                        ((100 * 0.4 + 2) * pokemon_att.points_attack * attac.power)
+                        / (pokemon_def.points_defense * 50)
+                    )
+                    + 2
+                )
+                * STAB
+                * RESISTANCE
+                * CRIT
+            )
         else:
-            dommages = ((((100 * 0.4 + 2) * pokemon_att.points_att_sp * attac.power) / (
-                    pokemon_def.points_def_sp * 50)) + 2) * STAB * RESISTANCE * CRIT
+            dommages = (
+                (
+                    (
+                        ((100 * 0.4 + 2) * pokemon_att.points_att_sp * attac.power)
+                        / (pokemon_def.points_def_sp * 50)
+                    )
+                    + 2
+                )
+                * STAB
+                * RESISTANCE
+                * CRIT
+            )
 
         if RESISTANCE > 1:
             print("It's super efficient !")
@@ -98,15 +118,22 @@ def action_attack(attaque, player_att, player_def, backend_sim):
 
     if thaw == 1 and paralysis == 1:
         print("{} is using {}".format(player_att.pokemon.name, attaque.name))
-        player_def.pokemon.dommages = player_def.pokemon.dommages + calcul_dommage(attaque, player_att.pokemon,
-                                                                                   player_def.pokemon, backend_sim)
+        player_def.pokemon.dommages = player_def.pokemon.dommages + calcul_dommage(
+            attaque, player_att.pokemon, player_def.pokemon, backend_sim
+        )
         if round(player_def.pokemon.pv - player_def.pokemon.dommages) < 0:
-            print("{} - 0 / {} pv".format(player_def.pokemon.name, player_def.pokemon.pv))
+            print(
+                "{} - 0 / {} pv".format(player_def.pokemon.name, player_def.pokemon.pv)
+            )
 
         else:
-            print("{} - {} / {} pv".format(player_def.pokemon.name,
-                                           round(player_def.pokemon.pv - player_def.pokemon.dommages),
-                                           player_def.pokemon.pv))
+            print(
+                "{} - {} / {} pv".format(
+                    player_def.pokemon.name,
+                    round(player_def.pokemon.pv - player_def.pokemon.dommages),
+                    player_def.pokemon.pv,
+                )
+            )
 
         if player_def.pokemon.dommages >= player_def.pokemon.pv:
             player_def.pokemon.status = 0

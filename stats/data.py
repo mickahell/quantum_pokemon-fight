@@ -13,16 +13,13 @@ def stats(winner):
 
         data = {
             "event_type": "games-stats",
-            "client_payload": {
-                "game": "qpokemon",
-                "winner": f"{winner}"
-            }
+            "client_payload": {"game": "qpokemon", "winner": f"{winner}"},
         }
 
         requests.post(
             url="https://api.github.com/repos/mickahell/robots-data/dispatches",
             headers=headers,
-            json=data
+            json=data,
         )
 
     else:
@@ -42,14 +39,14 @@ def team_stats(winner, looser):
             "event_type": "qpokemon-team-stats",
             "client_payload": {
                 "winner": [i for i in winner],
-                "looser": [i for i in looser]
-            }
+                "looser": [i for i in looser],
+            },
         }
 
         requests.post(
             url="https://api.github.com/repos/mickahell/robots-data/dispatches",
             headers=headers,
-            json=data
+            json=data,
         )
 
     else:

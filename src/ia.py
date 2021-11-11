@@ -59,17 +59,17 @@ def quantum_attaq(attacker, defender, qc_type, backend_sim):
         # 11
         qc.ccx(qram_q[0], qram_q[1], attacker.attacks[3].type.qubit)
 
-    qram_q = QuantumRegister(2, 'attacks')
+    qram_q = QuantumRegister(2, "attacks")
     qc_qram = QuantumCircuit(qram_q)
-    advweak_q = QuantumRegister(2, 'weakness_map')
-    weakcheck_q = QuantumRegister(1, 'check_weakness')
-    advresist_q = QuantumRegister(2, 'resistance_map')
-    resistcheck_q = QuantumRegister(1, 'check_resistance')
-    immu_q = QuantumRegister(1, 'immunity')
+    advweak_q = QuantumRegister(2, "weakness_map")
+    weakcheck_q = QuantumRegister(1, "check_weakness")
+    advresist_q = QuantumRegister(2, "resistance_map")
+    resistcheck_q = QuantumRegister(1, "check_resistance")
+    immu_q = QuantumRegister(1, "immunity")
     qc_weak = QuantumCircuit(advweak_q, weakcheck_q, advresist_q, resistcheck_q, immu_q)
-    check_q = QuantumRegister(1, 'check')
-    out_q = QuantumRegister(1, 'flag')
-    c = ClassicalRegister(2, 'c')
+    check_q = QuantumRegister(1, "check")
+    out_q = QuantumRegister(1, "flag")
+    c = ClassicalRegister(2, "c")
     qc_c = QuantumCircuit(check_q, out_q, c)
 
     # Circuit final
@@ -168,18 +168,18 @@ def quantum_action(defender, attacker, qc_type, backend_sim):
         if len(attacker.types) > 1:
             qc.ccx(qram_q[0], qram_q[1], attacker.types[1].qubit)
 
-    qram_q = QuantumRegister(2, 'attacks')
+    qram_q = QuantumRegister(2, "attacks")
     qc_qram = QuantumCircuit(qram_q)
 
-    weak_q = QuantumRegister(2, 'weakness_map')
-    weakcheck_q = QuantumRegister(1, 'check_weakness')
-    resist_q = QuantumRegister(2, 'resistance_map')
-    immu_q = QuantumRegister(1, 'immunity')
+    weak_q = QuantumRegister(2, "weakness_map")
+    weakcheck_q = QuantumRegister(1, "check_weakness")
+    resist_q = QuantumRegister(2, "resistance_map")
+    immu_q = QuantumRegister(1, "immunity")
     qc_weak = QuantumCircuit(weak_q, weakcheck_q, resist_q, immu_q)
 
-    check_q = QuantumRegister(1, 'check')
-    out_q = QuantumRegister(1, 'flag')
-    c = ClassicalRegister(2, 'c')
+    check_q = QuantumRegister(1, "check")
+    out_q = QuantumRegister(1, "flag")
+    c = ClassicalRegister(2, "c")
     qc_c = QuantumCircuit(check_q, out_q, c)
 
     # Circuit final
@@ -281,49 +281,73 @@ def quantum_switch(attacker, defender, qc_type, backend_sim):
         qc.x(qrampoke_q)
         # 00 0
         qc.x(qramatt_q)
-        qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[0].attacks[0].type.qubit)
+        qc.mcx(
+            [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+            attacker[0].attacks[0].type.qubit,
+        )
         qc.x(qramatt_q)
         # 01 0
         qc.x(qramatt_q[1])
-        qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[0].attacks[1].type.qubit)
+        qc.mcx(
+            [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+            attacker[0].attacks[1].type.qubit,
+        )
         qc.x(qramatt_q[1])
         # 10 0
         qc.x(qramatt_q[0])
-        qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[0].attacks[2].type.qubit)
+        qc.mcx(
+            [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+            attacker[0].attacks[2].type.qubit,
+        )
         qc.x(qramatt_q[0])
         # 11 0
-        qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[0].attacks[3].type.qubit)
+        qc.mcx(
+            [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+            attacker[0].attacks[3].type.qubit,
+        )
         qc.x(qrampoke_q)
         # 1
         if len(attacker) > 1:
             # 00 1
             qc.x(qramatt_q)
-            qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[1].attacks[0].type.qubit)
+            qc.mcx(
+                [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+                attacker[1].attacks[0].type.qubit,
+            )
             qc.x(qramatt_q)
             # 01 1
             qc.x(qramatt_q[1])
-            qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[1].attacks[1].type.qubit)
+            qc.mcx(
+                [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+                attacker[1].attacks[1].type.qubit,
+            )
             qc.x(qramatt_q[1])
             # 10 1
             qc.x(qramatt_q[0])
-            qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[1].attacks[2].type.qubit)
+            qc.mcx(
+                [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+                attacker[1].attacks[2].type.qubit,
+            )
             qc.x(qramatt_q[0])
             # 11 1
-            qc.mcx([qrampoke_q[0], qramatt_q[0], qramatt_q[1]], attacker[1].attacks[3].type.qubit)
+            qc.mcx(
+                [qrampoke_q[0], qramatt_q[0], qramatt_q[1]],
+                attacker[1].attacks[3].type.qubit,
+            )
 
-    qrampoke_q = QuantumRegister(1, 'team')
-    qramatt_q = QuantumRegister(2, 'attacks')
+    qrampoke_q = QuantumRegister(1, "team")
+    qramatt_q = QuantumRegister(2, "attacks")
     qc_qram = QuantumCircuit(qrampoke_q, qramatt_q)
 
-    weak_q = QuantumRegister(2, 'weakness_map')
-    weakcheck_q = QuantumRegister(1, 'check_weakness')
-    resist_q = QuantumRegister(2, 'resistance_map')
-    immu_q = QuantumRegister(1, 'immunite')
+    weak_q = QuantumRegister(2, "weakness_map")
+    weakcheck_q = QuantumRegister(1, "check_weakness")
+    resist_q = QuantumRegister(2, "resistance_map")
+    immu_q = QuantumRegister(1, "immunite")
     qc_weak = QuantumCircuit(weak_q, weakcheck_q, resist_q, immu_q)
 
-    check_q = QuantumRegister(1, 'check')
-    out_q = QuantumRegister(1, 'flag')
-    c = ClassicalRegister(1, 'c')
+    check_q = QuantumRegister(1, "check")
+    out_q = QuantumRegister(1, "flag")
+    c = ClassicalRegister(1, "c")
     qc_c = QuantumCircuit(check_q, out_q, c)
 
     # Circuit final
