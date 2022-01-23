@@ -115,7 +115,7 @@ def battle(me, him, qc_type, backend_sim):
                     action_attack(him.pokemon.attacks[attack_j2], him, me, backend_sim)
                 # Speedtie
                 else:
-                    speetie = quantum_fight(0.5)
+                    speetie = quantum_fight(0.5, backend_sim)
                     if speetie == 0:
                         action_attack(
                             me.pokemon.attacks[attack_j1], me, him, backend_sim
