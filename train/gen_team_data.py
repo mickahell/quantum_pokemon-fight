@@ -147,7 +147,7 @@ class Team:
             giga_impact = Attack("Giga-Impact", normal, 150, 0.9, "physical")
             bite = Attack("Bite", dark, 60, 1, "physical")
             tri_attack = Attack("Triplattaque", normal, 80, 1, "special")
-            hyper_beam = Attack("Hyper Beam", normal, 150, 0.9, "special")
+            #hyper_beam = Attack("Hyper Beam", normal, 150, 0.9, "special")
             throat_chop = Attack("Throat Chop", dark, 80, 1, "physical")
             fire_punch = Attack("Fire Punch", fire, 75, 1, "physical")
 
