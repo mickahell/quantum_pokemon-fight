@@ -197,4 +197,4 @@ class Game:
         team_stats(winner=winner.register_team, looser=looser.register_team)
 
         print("The fight is over !")
-        actualize = str(input("Push enter to auto F5 the page") or "42")
+        str(input("Push enter to auto F5 the page") or "42")
